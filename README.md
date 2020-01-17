@@ -8,3 +8,6 @@ A collection of useful python tricks
 -- pytorch
 
 -- and more
+
+
+Created by: Ali Borji
