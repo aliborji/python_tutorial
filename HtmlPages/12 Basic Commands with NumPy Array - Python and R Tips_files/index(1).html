@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- saved from url=(0145)https://s0.2mdn.net/ads/richmedia/studio/pv2/61352040/20191220031749497/index.html?e=69&leftOffset=0&topOffset=0&c=M0O40028BW&t=1&renderingType=2 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<meta name="ad.size" content="width=300,height=600">
+<title>index</title>
+<!-- write your code here -->
+<script src="./Enabler_01_240.js"></script>
+<script src="./createjs_2015.11.26_54e1c3722102182bb133912ad4442e19_min.js"></script>
+<script src="./index.js"></script>
+<script>
+var clickTag = "https://www.maseratiusa.com/us/en/models/ghibli";
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("F662E19DC6EA434FBEE6E6BCB1145625");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib.index();
+	stage = new lib.Stage(canvas);
+	stage.enableMouseOver();	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!-- write your code here -->
+</head>
+<body onload="init();" style="margin:0px;">
+	<div id="animation_container" style="background-color:rgba(0, 0, 0, 1.00); width:300px; height:600px">
+		<canvas id="canvas" width="600" height="1200" style="position: absolute; display: block; background-color: rgb(0, 0, 0); width: 300px; height: 600px;"></canvas>
+		<div id="dom_overlay_container" style="pointer-events:none; overflow:hidden; width:300px; height:600px; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+<script>
+var exitButton = document.getElementById("canvas");
+exitButton.addEventListener('click', exitHandler, false);
+
+function exitHandler() {
+var siteId = Enabler.getDartSiteId();
+var campaignId = Enabler.getParameter("buy");
+var placementId = Enabler.getDartPageId();
+var creativeId = Enabler.getDartCreativeId();
+var adId = Enabler.getDartAdId();
+
+var macroString = "utm_source=" +siteId+"&utm_medium=display&utm_campaign="+campaignId+"&utm_content="+placementId+"&utm_term="+creativeId+"_"+adId;
+//console.log("Macro String is: ",macroString);
+
+console.log("All values: " + Enabler.getParameter('adv') + Enabler.getDartAdId() + Enabler.getParameter('buy') + Enabler.getDartCreativeId() + Enabler.getDartPageId() + Enabler.getDartRenderingId() + Enabler.getDartSiteId() + Enabler.getDartSiteName());
+
+Enabler.exitQueryString("current-offers", macroString);
+}
+
+</script>
+
+</body></html>

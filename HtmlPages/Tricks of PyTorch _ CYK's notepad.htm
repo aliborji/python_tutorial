@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/ -->
+<html class="theme-next muse use-motion macos desktop landscape" lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-merge-styles="true"></style><meta name="generator" content="Hexo 3.8.0">
+  
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="./Tricks of PyTorch _ CYK&#39;s notepad_files/pace.min.js"></script>
+  <link href="./Tricks of PyTorch _ CYK&#39;s notepad_files/pace-theme-minimal.min.css" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="./Tricks of PyTorch _ CYK&#39;s notepad_files/jquery.fancybox.css" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="./Tricks of PyTorch _ CYK&#39;s notepad_files/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+<link href="./Tricks of PyTorch _ CYK&#39;s notepad_files/main.css" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://ychai.uk/notes/images/dog.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="https://ychai.uk/notes/images/dog.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="https://ychai.uk/notes/images/dog.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="https://ychai.uk/notes/images/dog.png?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="PyTorch,">
+
+
+
+
+
+
+
+
+
+
+<meta name="keywords" content="PyTorch">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tricks of PyTorch">
+<meta property="og:url" content="https://cyk1337.github.io/notes/2019/09/06/Programming/Tricks-of-PyTorch/index.html">
+<meta property="og:site_name" content="CYK&#39;s notepad">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://cyk1337.github.io/notes/images/pytorch-logo-only.png">
+<meta property="og:updated_time" content="2019-12-22T11:15:30.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tricks of PyTorch">
+<meta name="twitter:image" content="https://cyk1337.github.io/notes/images/pytorch-logo-only.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/notes/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cyk1337.github.io/notes/2019/09/06/Programming/Tricks-of-PyTorch/">
+
+
+
+
+
+  <title>Tricks of PyTorch | CYK's notepad</title>
+  
+
+
+
+
+
+
+
+
+<script src="./Tricks of PyTorch _ CYK&#39;s notepad_files/embed.js" data-timestamp="1579217863417"></script><script type="text/javascript" charset="utf-8" async="" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/L2Dwidget.0.min.js"></script><style type="text/css">.fancybox-margin{margin-right:0px;}</style><script src="./Tricks of PyTorch _ CYK&#39;s notepad_files/count-data.js"></script><style type="text/css">.backpack.dropzone {
+  font-family: 'SF UI Display', 'Segoe UI';
+  font-size: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 150px;
+  font-weight: lighter;
+  color: white;
+  will-change: right;
+  z-index: 2147483647;
+  bottom: 20%;
+  background: #333;
+  position: fixed;
+  user-select: none;
+  transition: left .5s, right .5s;
+  right: 0px; }
+  .backpack.dropzone .animation {
+    height: 80px;
+    width: 250px;
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center; }
+  .backpack.dropzone .title::before {
+    content: 'Save to'; }
+  .backpack.dropzone.closed {
+    right: -250px; }
+  .backpack.dropzone.hover .animation {
+    animation: sxt-play-anim-hover 0.91s steps(21);
+    animation-fill-mode: forwards;
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center; }
+
+@keyframes sxt-play-anim-hover {
+  from {
+    background-position: 0px; }
+  to {
+    background-position: -5250px; } }
+  .backpack.dropzone.saving .title::before {
+    content: 'Saving to'; }
+  .backpack.dropzone.saving .animation {
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saving_loop.png") left center;
+    animation: sxt-play-anim-saving steps(59) 2.46s infinite; }
+
+@keyframes sxt-play-anim-saving {
+  100% {
+    background-position: -14750px; } }
+  .backpack.dropzone.saved .title::before {
+    content: 'Saved to'; }
+  .backpack.dropzone.saved .animation {
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saved.png") left center;
+    animation: sxt-play-anim-saved steps(20) 0.83s forwards; }
+
+@keyframes sxt-play-anim-saved {
+  100% {
+    background-position: -5000px; } }
+</style><link rel="prefetch" as="style" href="https://c.disquscdn.com/next/embed/styles/lounge.c110047924c9c15bf7ea6ffe3366ccf8.css"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/common.bundle.b3d69807fc8989b3511a4e0bb0652899.js"><link rel="prefetch" as="script" href="https://c.disquscdn.com/next/embed/lounge.bundle.9ff02c113cbccca73e151361d49d7b5b.js"><link rel="prefetch" as="script" href="https://disqus.com/next/config.js"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><script src="./Tricks of PyTorch _ CYK&#39;s notepad_files/alfalfalfa.0823c767a3bc925f628afd9bed26c958.js" async="" charset="UTF-8"></script><style type="text/css">.mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
+.MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
+.mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
+.mjx-full-width {text-align: center; display: table-cell!important; width: 10000em}
+.mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
+.mjx-math * {display: inline-block; -webkit-box-sizing: content-box!important; -moz-box-sizing: content-box!important; box-sizing: content-box!important; text-align: left}
+.mjx-numerator {display: block; text-align: center}
+.mjx-denominator {display: block; text-align: center}
+.MJXc-stacked {height: 0; position: relative}
+.MJXc-stacked > * {position: absolute}
+.MJXc-bevelled > * {display: inline-block}
+.mjx-stack {display: inline-block}
+.mjx-op {display: block}
+.mjx-under {display: table-cell}
+.mjx-over {display: block}
+.mjx-over > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-under > * {padding-left: 0px!important; padding-right: 0px!important}
+.mjx-stack > .mjx-sup {display: block}
+.mjx-stack > .mjx-sub {display: block}
+.mjx-prestack > .mjx-presup {display: block}
+.mjx-prestack > .mjx-presub {display: block}
+.mjx-delim-h > .mjx-char {display: inline-block}
+.mjx-surd {vertical-align: top}
+.mjx-mphantom * {visibility: hidden}
+.mjx-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 2px 3px; font-style: normal; font-size: 90%}
+.mjx-annotation-xml {line-height: normal}
+.mjx-menclose > svg {fill: none; stroke: currentColor}
+.mjx-mtr {display: table-row}
+.mjx-mlabeledtr {display: table-row}
+.mjx-mtd {display: table-cell; text-align: center}
+.mjx-label {display: table-row}
+.mjx-box {display: inline-block}
+.mjx-block {display: block}
+.mjx-span {display: inline}
+.mjx-char {display: block; white-space: pre}
+.mjx-itable {display: inline-table; width: auto}
+.mjx-row {display: table-row}
+.mjx-cell {display: table-cell}
+.mjx-table {display: table; width: 100%}
+.mjx-line {display: block; height: 0}
+.mjx-strut {width: 0; padding-top: 1em}
+.mjx-vsize {width: 0}
+.MJXc-space1 {margin-left: .167em}
+.MJXc-space2 {margin-left: .222em}
+.MJXc-space3 {margin-left: .278em}
+.mjx-chartest {display: block; visibility: hidden; position: absolute; top: 0; line-height: normal; font-size: 500%}
+.mjx-chartest .mjx-char {display: inline}
+.mjx-chartest .mjx-box {padding-top: 1000px}
+.MJXc-processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MJXc-processed {display: none}
+.mjx-test {display: block; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+.mjx-ex-box-test {position: absolute; width: 1px; height: 60ex}
+.mjx-line-box-test {display: table!important}
+.mjx-line-box-test span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+#MathJax_CHTML_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.mjx-chtml .mjx-noError {line-height: 1.2; vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+.MJXc-TeX-unknown-R {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: normal}
+.MJXc-TeX-unknown-I {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: normal}
+.MJXc-TeX-unknown-B {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: bold}
+.MJXc-TeX-unknown-BI {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: bold}
+.MJXc-TeX-ams-R {font-family: MJXc-TeX-ams-R,MJXc-TeX-ams-Rw}
+.MJXc-TeX-cal-B {font-family: MJXc-TeX-cal-B,MJXc-TeX-cal-Bx,MJXc-TeX-cal-Bw}
+.MJXc-TeX-frak-R {font-family: MJXc-TeX-frak-R,MJXc-TeX-frak-Rw}
+.MJXc-TeX-frak-B {font-family: MJXc-TeX-frak-B,MJXc-TeX-frak-Bx,MJXc-TeX-frak-Bw}
+.MJXc-TeX-math-BI {font-family: MJXc-TeX-math-BI,MJXc-TeX-math-BIx,MJXc-TeX-math-BIw}
+.MJXc-TeX-sans-R {font-family: MJXc-TeX-sans-R,MJXc-TeX-sans-Rw}
+.MJXc-TeX-sans-B {font-family: MJXc-TeX-sans-B,MJXc-TeX-sans-Bx,MJXc-TeX-sans-Bw}
+.MJXc-TeX-sans-I {font-family: MJXc-TeX-sans-I,MJXc-TeX-sans-Ix,MJXc-TeX-sans-Iw}
+.MJXc-TeX-script-R {font-family: MJXc-TeX-script-R,MJXc-TeX-script-Rw}
+.MJXc-TeX-type-R {font-family: MJXc-TeX-type-R,MJXc-TeX-type-Rw}
+.MJXc-TeX-cal-R {font-family: MJXc-TeX-cal-R,MJXc-TeX-cal-Rw}
+.MJXc-TeX-main-B {font-family: MJXc-TeX-main-B,MJXc-TeX-main-Bx,MJXc-TeX-main-Bw}
+.MJXc-TeX-main-I {font-family: MJXc-TeX-main-I,MJXc-TeX-main-Ix,MJXc-TeX-main-Iw}
+.MJXc-TeX-main-R {font-family: MJXc-TeX-main-R,MJXc-TeX-main-Rw}
+.MJXc-TeX-math-I {font-family: MJXc-TeX-math-I,MJXc-TeX-math-Ix,MJXc-TeX-math-Iw}
+.MJXc-TeX-size1-R {font-family: MJXc-TeX-size1-R,MJXc-TeX-size1-Rw}
+.MJXc-TeX-size2-R {font-family: MJXc-TeX-size2-R,MJXc-TeX-size2-Rw}
+.MJXc-TeX-size3-R {font-family: MJXc-TeX-size3-R,MJXc-TeX-size3-Rw}
+.MJXc-TeX-size4-R {font-family: MJXc-TeX-size4-R,MJXc-TeX-size4-Rw}
+@font-face {font-family: MJXc-TeX-ams-R; src: local('MathJax_AMS'), local('MathJax_AMS-Regular')}
+@font-face {font-family: MJXc-TeX-ams-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_AMS-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_AMS-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-B; src: local('MathJax_Caligraphic Bold'), local('MathJax_Caligraphic-Bold')}
+@font-face {font-family: MJXc-TeX-cal-Bx; src: local('MathJax_Caligraphic'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-cal-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-R; src: local('MathJax_Fraktur'), local('MathJax_Fraktur-Regular')}
+@font-face {font-family: MJXc-TeX-frak-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-frak-B; src: local('MathJax_Fraktur Bold'), local('MathJax_Fraktur-Bold')}
+@font-face {font-family: MJXc-TeX-frak-Bx; src: local('MathJax_Fraktur'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-frak-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Fraktur-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Fraktur-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Fraktur-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-BI; src: local('MathJax_Math BoldItalic'), local('MathJax_Math-BoldItalic')}
+@font-face {font-family: MJXc-TeX-math-BIx; src: local('MathJax_Math'); font-weight: bold; font-style: italic}
+@font-face {font-family: MJXc-TeX-math-BIw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Math-BoldItalic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Math-BoldItalic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Math-BoldItalic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-R; src: local('MathJax_SansSerif'), local('MathJax_SansSerif-Regular')}
+@font-face {font-family: MJXc-TeX-sans-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-B; src: local('MathJax_SansSerif Bold'), local('MathJax_SansSerif-Bold')}
+@font-face {font-family: MJXc-TeX-sans-Bx; src: local('MathJax_SansSerif'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-sans-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-sans-I; src: local('MathJax_SansSerif Italic'), local('MathJax_SansSerif-Italic')}
+@font-face {font-family: MJXc-TeX-sans-Ix; src: local('MathJax_SansSerif'); font-style: italic}
+@font-face {font-family: MJXc-TeX-sans-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_SansSerif-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_SansSerif-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_SansSerif-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-script-R; src: local('MathJax_Script'), local('MathJax_Script-Regular')}
+@font-face {font-family: MJXc-TeX-script-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Script-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Script-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Script-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-type-R; src: local('MathJax_Typewriter'), local('MathJax_Typewriter-Regular')}
+@font-face {font-family: MJXc-TeX-type-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Typewriter-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Typewriter-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Typewriter-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-cal-R; src: local('MathJax_Caligraphic'), local('MathJax_Caligraphic-Regular')}
+@font-face {font-family: MJXc-TeX-cal-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Caligraphic-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-B; src: local('MathJax_Main Bold'), local('MathJax_Main-Bold')}
+@font-face {font-family: MJXc-TeX-main-Bx; src: local('MathJax_Main'); font-weight: bold}
+@font-face {font-family: MJXc-TeX-main-Bw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Bold.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-I; src: local('MathJax_Main Italic'), local('MathJax_Main-Italic')}
+@font-face {font-family: MJXc-TeX-main-Ix; src: local('MathJax_Main'); font-style: italic}
+@font-face {font-family: MJXc-TeX-main-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-main-R; src: local('MathJax_Main'), local('MathJax_Main-Regular')}
+@font-face {font-family: MJXc-TeX-main-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-math-I; src: local('MathJax_Math Italic'), local('MathJax_Math-Italic')}
+@font-face {font-family: MJXc-TeX-math-Ix; src: local('MathJax_Math'); font-style: italic}
+@font-face {font-family: MJXc-TeX-math-Iw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size1-R; src: local('MathJax_Size1'), local('MathJax_Size1-Regular')}
+@font-face {font-family: MJXc-TeX-size1-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size1-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size2-R; src: local('MathJax_Size2'), local('MathJax_Size2-Regular')}
+@font-face {font-family: MJXc-TeX-size2-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size2-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size3-R; src: local('MathJax_Size3'), local('MathJax_Size3-Regular')}
+@font-face {font-family: MJXc-TeX-size3-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size3-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
+@font-face {font-family: MJXc-TeX-size4-R; src: local('MathJax_Size4'), local('MathJax_Size4-Regular')}
+@font-face {font-family: MJXc-TeX-size4-Rw; src /*1*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/eot/MathJax_Size4-Regular.eot'); src /*2*/: url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+</style></head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="en" class="pace-done" style="padding-right: 320px;"><div id="MathJax_Message" style="display: none;"></div><div class="pace  pace-inactive"><div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+  <div class="pace-progress-inner"></div>
+</div>
+<div class="pace-activity"></div></div>
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+<a href="https://github.com/cyk1337"><img style="position: absolute; top: 0; left: 0; border: 0;" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/forkme_left_red_aa0000.png" alt="Fork me on GitHub"></a>
+
+<!-- (github fork span, top right)
+<a href="https://github.com/cyk1337"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+-->
+
+<!-- (github fork span)
+  <a href="https://github.com/cyk1337" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+-->
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="https://ychai.uk/notes/" class="brand" rel="start" style="opacity: 1;">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title" style="opacity: 1; top: 0px;">CYK's notepad</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle" style="opacity: 1; top: 0px;">Hello World ;)</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home" style="opacity: 1; transform: translateY(0px);">
+          <a href="https://ychai.uk/notes/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags" style="opacity: 1; transform: translateY(0px);">
+          <a href="https://ychai.uk/notes/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories" style="opacity: 1; transform: translateY(0px);">
+          <a href="https://ychai.uk/notes/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives" style="opacity: 1; transform: translateY(0px);">
+          <a href="https://ychai.uk/notes/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search" style="opacity: 1; transform: translateY(0px);">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block" style="opacity: 1; display: block;">
+    <link itemprop="mainEntityOfPage" href="https://cyk1337.github.io/notes/notes/2019/09/06/Programming/Tricks-of-PyTorch/">
+
+    <span hidden="" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yekun CHAI">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/notes/images/Calton.jpg">
+    </span>
+
+    <span hidden="" itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CYK&#39;s notepad">
+    </span>
+
+    
+      <header class="post-header" style="opacity: 1; display: block; transform: translateY(0px);">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tricks of PyTorch</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-09-06T09:25:00+08:00">
+                2019-09-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="https://ychai.uk/notes/categories/PyTorch/" itemprop="url" rel="index">
+                    <span itemprop="name">PyTorch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/09/06/Programming/Tricks-of-PyTorch/" itemprop="commentCount">0 Comments</span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+        
+          
+            <span class="post-meta-divider">|</span>
+            <span id="busuanzi_value_page_pv">20</span> views
+          
+
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody" style="opacity: 1; display: block; transform: translateY(0px);">
+
+      
+      
+
+      
+        <link rel="stylesheet" type="text/css" href="./Tricks of PyTorch _ CYK&#39;s notepad_files/hint.min.css"><p><a href="./Tricks of PyTorch _ CYK&#39;s notepad_files/pytorch-logo-only.png" class="fancybox fancybox.image" rel="group"><img src="./Tricks of PyTorch _ CYK&#39;s notepad_files/pytorch-logo-only.png" width="30%"></a></p>
+<a id="more"></a>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></tbody></table></figure>
+<h1 id="Basic-op"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Basic-op" class="headerlink" title="Basic op"></a>Basic op</h1><h2 id="numpy-to-from-tensor"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#numpy-to-from-tensor" class="headerlink" title="numpy to/from tensor"></a>numpy to/from tensor</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># numpy -&gt; tensor</span></span><br><span class="line">np_array = np.ones((<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line">torch_tensor = torch.from_numpy(np_array)</span><br><span class="line"><span class="comment"># or:</span></span><br><span class="line">torch_tensor = torch.FloatTensor(np_array)</span><br><span class="line"></span><br><span class="line"><span class="comment"># tensor -&gt; numpy</span></span><br><span class="line">np_array = torch_tensor.numpy()</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="contiguous"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#contiguous" class="headerlink" title="contiguous"></a>contiguous</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x.transpose(<span class="number">1</span>, <span class="number">2</span>).contiguous().view(...)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Parameter-v-s-register-buffer"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Parameter-v-s-register-buffer" class="headerlink" title="Parameter v.s. register_buffer"></a>Parameter v.s. register_buffer</h2><ul>
+<li><p><code>nn.Parameter</code> is considered a module parameter and will appear in <code>parameters()</code> iterator. This would do backprop.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nn.Parameter(data: Tensor, required_grad:bool = <span class="keyword">True</span>)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+<li><p><code>register_buffer</code> add a persistant buffer to the module. It is used to register a buffer, not a parameter. It cannot do backprop.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">self.register_buffer(name:str, tensor: Tensor)</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<h2 id="Multiplication"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Multiplication" class="headerlink" title="Multiplication"></a>Multiplication</h2><h3 id="torch-einsum"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#torch-einsum" class="headerlink" title="torch.einsum"></a>torch.einsum</h3><p>multi-linear expressions, i.e. sums of products. Use Einstein summation convention</p>
+<p><code>torch.einsum(equation, *operands)</code> → Tensor<br></p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">As = torch.randn(<span class="number">3</span>,<span class="number">2</span>,<span class="number">5</span>)</span><br><span class="line">Bs = torch.randn(<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>)</span><br><span class="line">torch.einsum(<span class="string">'bij,bjk-&gt;bik'</span>, As, Bs) <span class="comment"># batch matrix multiplication</span></span><br></pre></td></tr></tbody></table></figure><p></p>
+<h3 id="torch-ger"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#torch-ger" class="headerlink" title="torch.ger"></a>torch.ger</h3><p><code>torch.ger(input, vec2, out=None)</code> → Tensor<br>outer product<br></p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">v1 = torch.arange(<span class="number">1.</span>, <span class="number">5.</span>)</span><br><span class="line">v2 = torch.arange(<span class="number">1.</span>, <span class="number">4.</span>)</span><br><span class="line">torch.ger(v1, v2)</span><br><span class="line"><span class="comment"># tensor([[  1.,   2.,   3.],</span></span><br><span class="line">        [  <span class="number">2.</span>,   <span class="number">4.</span>,   <span class="number">6.</span>],</span><br><span class="line">        [  <span class="number">3.</span>,   <span class="number">6.</span>,   <span class="number">9.</span>],</span><br><span class="line">        [  <span class="number">4.</span>,   <span class="number">8.</span>,  <span class="number">12.</span>]])</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="dimension"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#dimension" class="headerlink" title="dimension"></a>dimension</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">t = torch.randn(<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>)</span><br><span class="line"></span><br><span class="line">t.dim() <span class="comment"># 3</span></span><br><span class="line">t.size() <span class="comment"># torch.Size([4, 5, 6])</span></span><br><span class="line">t.shape <span class="comment"># torch.Size([4, 5, 6])</span></span><br><span class="line">t.size(<span class="number">0</span>) <span class="comment"># 4</span></span><br><span class="line">t.size(<span class="number">-1</span>) <span class="comment"># 6</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="nn-Parameter"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#nn-Parameter" class="headerlink" title="nn.Parameter"></a>nn.Parameter</h2><p><code>torch.nn.Parameter</code>, a subclass of <code>torch.Tensor</code>, could automatically add the data into the list of parameters and could appear in <code>Module.parameters</code> iterator. It can be automatically optimized by the optimizer if in optimized parameter list. Its arguments:</p>
+<ul>
+<li>data (Tensor): parameter tensor.</li>
+<li>requires_grad (bool, optional): if the parameter requires gradient. Default: True.</li>
+</ul>
+<h1 id="Tensor"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Tensor" class="headerlink" title="Tensor"></a>Tensor</h1><h2 id="byte"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#byte" class="headerlink" title="byte()"></a>byte()</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">t = torch.ones(<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">t.byte()</span><br><span class="line"><span class="comment"># equals to</span></span><br><span class="line">t.to(torch.uint8)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="topk"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#topk" class="headerlink" title="topk()"></a>topk()</h2><p><code>torch.topk(input, k, dim=None, largest=True, sorted=True, out=None)</code> -&gt; (Tensor, LongTensor)</p>
+<ul>
+<li>a namedtuple of (values, indices) is returned, where the indices are the indices of the elements in the original input tensor.</li>
+</ul>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x = torch.arange(<span class="number">1.</span>, <span class="number">6.</span>)</span><br><span class="line"><span class="comment"># tensor([ 1.,  2.,  3.,  4.,  5.])</span></span><br><span class="line">torch.topk(x, <span class="number">3</span>)</span><br><span class="line"><span class="comment"># torch.return_types.topk(values=tensor([5., 4., 3.]), indices=tensor([4, 3, 2]))</span></span><br></pre></td></tr></tbody></table></figure>
+<h1 id="Loss-functions"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Loss-functions" class="headerlink" title="Loss functions"></a>Loss functions</h1><h2 id="NLLLoss"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#NLLLoss" class="headerlink" title="NLLLoss"></a>NLLLoss</h2><p><code>torch.nn.NLLLoss(weight=None, size_average=None, ignore_index=-100, reduce=None, reduction='mean')</code></p>
+<ul>
+<li>negative log likelihood loss. It is useful to train a classification problem with C classes</li>
+<li><code>size_average</code>, <code>reduce</code> - deprecated</li>
+<li><code>reduction</code>: (‘none’, ‘mean’ (default), ‘sum’)</li>
+<li>It requires adding a <code>LogSoftmax</code> layer as the last layer. Combining <code>LogSoftmax</code> with <code>NLLLoss</code> is the same as using <code>CrossEntropyLoss</code>.</li>
+</ul>
+<h1 id="Optim"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optim" class="headerlink" title="Optim"></a>Optim</h1><h2 id="Per-parameter-optim"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Per-parameter-optim" class="headerlink" title="Per-parameter optim"></a>Per-parameter optim</h2><p>Pass in an iterable of <code>dict</code>s.<br>E.g. specify per-layer learning rates:<br></p><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">optim.SGD([</span><br><span class="line">            {'params': model.base.parameters()}, # default lr</span><br><span class="line">            {'params': model.classifier.parameters(), 'lr': 1e-3}</span><br><span class="line">          ], </span><br><span class="line">          lr=1e-2, # default</span><br><span class="line">          momentum=.9 # for all params</span><br><span class="line">      )</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="Optim-step"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optim-step" class="headerlink" title="Optim step"></a>Optim step</h2><h3 id="Optimizer-step"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optimizer-step" class="headerlink" title="Optimizer.step()"></a>Optimizer.step()</h3><p>Step once the gradients are computed <code>loss.backward()</code></p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> input, target <span class="keyword">in</span> dataset:</span><br><span class="line">    optimizer.zero_grad() <span class="comment"># zero gradients</span></span><br><span class="line">    output = model(input) <span class="comment"># foward pass</span></span><br><span class="line">    loss = loss_fn(output, target) <span class="comment"># calculate loss</span></span><br><span class="line">    loss.backward() <span class="comment"># do backprop, compute gradients</span></span><br><span class="line">    optimizer.step() <span class="comment"># update parameters</span></span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Optim-algorithms"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optim-algorithms" class="headerlink" title="Optim algorithms"></a>Optim algorithms</h2><p><a href="https://ychai.uk/notes/2019/05/20/NN/Optimization-methods-introduction">Optimization methods in deep learning</a></p>
+<h3 id="Optimizer-step-closure"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optimizer-step-closure" class="headerlink" title="Optimizer.step(closure)"></a>Optimizer.step(closure)</h3><p>Some algorithms like Conjugate Gradient and LBFGS requries re-evaluate multiple times, so pass in a closure to clear the gradients, compute the loss, finally return.</p>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> input, target <span class="keyword">in</span> dataset:</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">closure</span><span class="params">()</span>:</span></span><br><span class="line">        optimizer.zero_grad()</span><br><span class="line">        output = model(input)</span><br><span class="line">        loss = loss_fn(output, target)</span><br><span class="line">        loss.backward()</span><br><span class="line">        <span class="keyword">return</span> loss</span><br><span class="line">    optimizer.step(closure) <span class="comment"># pass in a closure</span></span><br></pre></td></tr></tbody></table></figure>
+<h3 id="Adjust-learning-rate"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Adjust-learning-rate" class="headerlink" title="Adjust learning rate"></a>Adjust learning rate</h3><p>use <code>torch.optim.le_scheduler</code><br></p><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">scheduler = ...</span><br><span class="line"><span class="keyword">for</span> epoch <span class="keyword">in</span> range(<span class="number">100</span>):</span><br><span class="line">    train(...)</span><br><span class="line">    evaluate(...)</span><br><span class="line">    scheduler.step()</span><br></pre></td></tr></tbody></table></figure><p></p>
+<h2 id="gradient-clipping"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#gradient-clipping" class="headerlink" title="gradient clipping"></a>gradient clipping</h2><ol>
+<li>clip by value, set threshold</li>
+<li class=" has-jax">clip_norm.<span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="mjx-chtml MJXc-display" style="text-align: center;"><span id="MathJax-Element-1-Frame" class="mjx-chtml MathJax_CHTML" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;block&quot;&gt;&lt;mtext&gt;grad_clip_norm(t)&lt;/mtext&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mrow&gt;&lt;mo&gt;{&lt;/mo&gt;&lt;mtable columnalign=&quot;left left&quot; rowspacing=&quot;4pt&quot; columnspacing=&quot;1em&quot;&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mo&gt;&amp;#x2217;&lt;/mo&gt;&lt;mfrac&gt;&lt;mtext&gt;max norm&lt;/mtext&gt;&lt;mrow&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;msub&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mspace width=&quot;1em&quot; /&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;msub&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mo stretchy=&quot;false&quot;&gt;|&lt;/mo&gt;&lt;/mrow&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/msub&gt;&lt;mo&gt;&amp;#x2264;&lt;/mo&gt;&lt;mtext&gt;max norm&lt;/mtext&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;mtr&gt;&lt;mtd&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mspace width=&quot;1em&quot; /&gt;&lt;mtext&gt;otherwise&lt;/mtext&gt;&lt;/mtd&gt;&lt;/mtr&gt;&lt;/mtable&gt;&lt;mo fence=&quot;true&quot; stretchy=&quot;true&quot; symmetric=&quot;true&quot;&gt;&lt;/mo&gt;&lt;/mrow&gt;&lt;/math&gt;" role="presentation" style="font-size: 116%; text-align: center; position: relative;"><span id="MJXc-Node-1" class="mjx-math" aria-hidden="true"><span id="MJXc-Node-2" class="mjx-mrow"><span id="MJXc-Node-3" class="mjx-mtext"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">grad_clip_norm(t)</span></span><span id="MJXc-Node-4" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.057em; padding-bottom: 0.326em;">=</span></span><span id="MJXc-Node-5" class="mjx-mrow MJXc-space3"><span id="MJXc-Node-6" class="mjx-mo"><span class="mjx-char MJXc-TeX-size4-R" style="padding-top: 1.511em; padding-bottom: 1.511em;">{</span></span><span id="MJXc-Node-7" class="mjx-mtable" style="vertical-align: -1.197em; padding: 0px 0.167em;"><span class="mjx-table"><span id="MJXc-Node-8" class="mjx-mtr" style="height: 1.694em;"><span id="MJXc-Node-9" class="mjx-mtd" style="padding: 0px; text-align: left; width: 13.38em;"><span id="MJXc-Node-10" class="mjx-mrow" style="margin-top: -0.2em;"><span id="MJXc-Node-11" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.38em; padding-bottom: 0.272em;">t</span></span><span id="MJXc-Node-12" class="mjx-mo MJXc-space2"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.164em; padding-bottom: 0.326em;">∗</span></span><span id="MJXc-Node-13" class="mjx-mfrac MJXc-space2"><span class="mjx-box MJXc-stacked" style="width: 3.247em; padding: 0px 0.12em;"><span class="mjx-numerator" style="font-size: 70.7%; width: 4.592em; top: -1.095em;"><span id="MJXc-Node-14" class="mjx-mtext" style=""><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.164em; padding-bottom: 0.326em;">max norm</span></span></span><span class="mjx-denominator" style="font-size: 70.7%; width: 4.592em; bottom: -0.981em;"><span id="MJXc-Node-15" class="mjx-mrow" style=""><span id="MJXc-Node-16" class="mjx-texatom"><span id="MJXc-Node-17" class="mjx-mrow"><span id="MJXc-Node-18" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span><span id="MJXc-Node-19" class="mjx-texatom"><span id="MJXc-Node-20" class="mjx-mrow"><span id="MJXc-Node-21" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span><span id="MJXc-Node-22" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.38em; padding-bottom: 0.272em;">t</span></span><span id="MJXc-Node-23" class="mjx-texatom"><span id="MJXc-Node-24" class="mjx-mrow"><span id="MJXc-Node-25" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span><span id="MJXc-Node-26" class="mjx-msubsup"><span class="mjx-base"><span id="MJXc-Node-27" class="mjx-texatom"><span id="MJXc-Node-28" class="mjx-mrow"><span id="MJXc-Node-29" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.437em; padding-right: 0.071em;"><span id="MJXc-Node-30" class="mjx-mn" style=""><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.38em; padding-bottom: 0.326em;">2</span></span></span></span></span></span><span class="mjx-line" style="border-bottom: 1.3px solid; top: -0.284em; width: 3.247em;"></span></span><span class="mjx-vsize" style="height: 1.469em; vertical-align: -0.694em;"></span></span><span id="MJXc-Node-31" class="mjx-mspace" style="width: 1em; height: 0px;"></span><span id="MJXc-Node-32" class="mjx-texatom"><span id="MJXc-Node-33" class="mjx-mrow"><span id="MJXc-Node-34" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span><span id="MJXc-Node-35" class="mjx-texatom"><span id="MJXc-Node-36" class="mjx-mrow"><span id="MJXc-Node-37" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span><span id="MJXc-Node-38" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.38em; padding-bottom: 0.272em;">t</span></span><span id="MJXc-Node-39" class="mjx-texatom"><span id="MJXc-Node-40" class="mjx-mrow"><span id="MJXc-Node-41" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span><span id="MJXc-Node-42" class="mjx-msubsup"><span class="mjx-base"><span id="MJXc-Node-43" class="mjx-texatom"><span id="MJXc-Node-44" class="mjx-mrow"><span id="MJXc-Node-45" class="mjx-mo"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.488em; padding-bottom: 0.595em;">|</span></span></span></span></span><span class="mjx-sub" style="font-size: 70.7%; vertical-align: -0.437em; padding-right: 0.071em;"><span id="MJXc-Node-46" class="mjx-mn" style=""><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.38em; padding-bottom: 0.326em;">2</span></span></span></span><span id="MJXc-Node-47" class="mjx-mo MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.326em; padding-bottom: 0.488em;">≤</span></span><span id="MJXc-Node-48" class="mjx-mtext MJXc-space3"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.164em; padding-bottom: 0.326em;">max norm</span></span><span class="mjx-strut"></span></span></span></span><span id="MJXc-Node-49" class="mjx-mtr" style="height: 1.2em;"><span id="MJXc-Node-50" class="mjx-mtd" style="padding: 0.2em 0px 0px; text-align: left;"><span id="MJXc-Node-51" class="mjx-mrow" style="margin-top: -0.2em;"><span id="MJXc-Node-52" class="mjx-mi"><span class="mjx-char MJXc-TeX-math-I" style="padding-top: 0.38em; padding-bottom: 0.272em;">t</span></span><span id="MJXc-Node-53" class="mjx-mspace" style="width: 1em; height: 0px;"></span><span id="MJXc-Node-54" class="mjx-mtext"><span class="mjx-char MJXc-TeX-main-R" style="padding-top: 0.434em; padding-bottom: 0.326em;">otherwise</span></span><span class="mjx-strut"></span></span></span></span></span></span><span id="MJXc-Node-55" class="mjx-mo" style="width: 0.12em;"></span></span></span></span><span class="MJX_Assistive_MathML MJX_Assistive_MathML_Block" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mtext>grad_clip_norm(t)</mtext><mo>=</mo><mrow><mo>{</mo><mtable columnalign="left left" rowspacing="4pt" columnspacing="1em"><mtr><mtd><mi>t</mi><mo>∗</mo><mfrac><mtext>max norm</mtext><mrow><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mi>t</mi><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><msub><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mn>2</mn></msub></mrow></mfrac><mspace width="1em"></mspace><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mi>t</mi><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><msub><mrow class="MJX-TeXAtom-ORD"><mo stretchy="false">|</mo></mrow><mn>2</mn></msub><mo>≤</mo><mtext>max norm</mtext></mtd></mtr><mtr><mtd><mi>t</mi><mspace width="1em"></mspace><mtext>otherwise</mtext></mtd></mtr></mtable><mo fence="true" stretchy="true" symmetric="true"></mo></mrow></math></span></span></span><script type="math/tex; mode=display" id="MathJax-Element-1">\text{grad_clip_norm(t)}=\left\{
+             \begin{array}{ll}
+               t * \frac{\text{max norm}}{||t||_2} \quad  ||t||_2 \leq \text{max norm} \\
+               t \quad \text{otherwise}\\
+             \end{array}
+ \right.</script></li>
+</ol>
+<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clip_grad_norm_</span><span class="params">(parameters, max_norm, norm_type=<span class="number">2</span>)</span>:</span></span><br><span class="line">	``` PyTorch</span><br></pre></td></tr></tbody></table></figure>
+<pre><code>parameters = list(filter(lambda p: p.grad is not None, parameters))
+max_norm = float(max_norm))
+norm_type = float(norm_type)
+if norm_type = torch._six.inf
+    total_norm = max(p.grad.data.abs().max() for p in parameters)
+else:
+    total_norm = 0
+    for p in parameters:
+        param_norm = p.grad.data.norm(norm_type)
+        total_norm += param_norm.item() ** norm_type
+    total_norm = total_norm ** (1./ norm_type)
+clip_coef = max_norm / (total_norm + 1e-6)
+if clip_coef &lt; 1:
+    for p in parameters:
+        p.grad.data.mul_(clip_coef)
+return total_norm
+</code></pre><figure class="highlight plain"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"># Misc</span><br><span class="line">## define layers</span><br><span class="line">Layers should be directly set as the attribute of a children class of `torch.nn.Module`, so that `model.parameters()` can be directly pass to `torch.nn.optim`. Otherwise, additionally parameters should be passed following model.parameters().</span><br><span class="line"></span><br><span class="line">- In other words, if layers are wrapped by a parent data structure like dict(), the model.parameters() cannot get all the layer parameters to be optimized, so that the first augument of optimizer should be manually set. (as below python code)</span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line">import torch</span><br><span class="line">import torch.nn as nn</span><br><span class="line">import torch.optim as optim</span><br><span class="line">import torch.nn.functional as F</span><br><span class="line"></span><br><span class="line">class Net(nn.Module):</span><br><span class="line">    def __init__(self):</span><br><span class="line">        super(SharedLayers, self).__init__()</span><br><span class="line">        d = {}</span><br><span class="line">        d['f1'] = nn.Linear(20, 10)</span><br><span class="line">        d['f2'] = nn.Linear(10, 10)</span><br><span class="line">        self.d = d</span><br><span class="line">        self.f3 = nn.Linear(10, 1)</span><br><span class="line">        self.loss = nn.MSELoss()</span><br><span class="line"></span><br><span class="line">    def forward(self, x):</span><br><span class="line">        x = self.d['f1'](x)</span><br><span class="line">        x = self.d['f2'](x)</span><br><span class="line">        x = self.f3(x)</span><br><span class="line">        return x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == '__main__':</span><br><span class="line">    net = Net()</span><br><span class="line">    x = torch.rand(1, 20)</span><br><span class="line">    y = torch.rand(1, 1)</span><br><span class="line">    optimizer = optim.Adam(net.parameters(), lr=1e-3)</span><br><span class="line">    for _ in range(10):</span><br><span class="line">        y_ = net(x)</span><br><span class="line">        loss = F.mse_loss(y_, y)</span><br><span class="line">        opt.zero_grad()</span><br><span class="line">        loss.backward() # do backprop</span><br><span class="line">        optimizer.step() # do not optimize layers wrapped in net.d !</span><br><span class="line">        # [p for p in l.d['f1'].parameters()] never change!</span><br></pre></td></tr></tbody></table></figure>
+<ul>
+<li>Also, if we need to use gpu to run, often we do: Net().to(device). But if the there are layers encompassed by a dict attribute in the modulde class, we have to do layer.to(device) individually.<figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(SharedLayers, self).__init__()</span><br><span class="line">        d = {}</span><br><span class="line">        d[<span class="string">'f1'</span>] = nn.Linear(<span class="number">20</span>, <span class="number">10</span>).to(device)</span><br><span class="line">        d[<span class="string">'f2'</span>] = nn.Linear(<span class="number">10</span>, <span class="number">10</span>).to(device)</span><br><span class="line">        self.d = d</span><br><span class="line">        self.f3 = nn.Linear(<span class="number">10</span>, <span class="number">1</span>)</span><br><span class="line">        self.loss = nn.MSELoss()</span><br><span class="line">	</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    net = Net().to(device)</span><br><span class="line">    x = torch.rand(<span class="number">1</span>, <span class="number">20</span>).to(device)</span><br><span class="line">    y = torch.rand(<span class="number">1</span>, <span class="number">1</span>).to(device)</span><br><span class="line">    ...</span><br></pre></td></tr></tbody></table></figure>
+</li>
+</ul>
+<h2 id="NaN"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#NaN" class="headerlink" title="NaN"></a>NaN</h2><p>If there exists <code>NaN</code>:</p>
+<ol>
+<li>If within iteration 100, it may be due to the big learning rate. Try to reduce the learning rate 1/2~1/10.</li>
+<li>If use RNNs, may be because of the gradient exploration. Solution: add “gradient clipping”</li>
+<li>Division by 0.</li>
+<li>Take logarithm of 0 or negative number, e.g. calculating entropy or cross entropy.</li>
+<li>In exponential computation, the result is INF/INF, e.g. softmax. Solution: minus the maximum if possible.</li>
+</ol>
+<h2 id="Count-the-parameter-numbers"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Count-the-parameter-numbers" class="headerlink" title="Count the parameter numbers"></a>Count the parameter numbers</h2><figure class="highlight python"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># approach 1</span></span><br><span class="line">model_parameters = filter(<span class="keyword">lambda</span> p: p.requires_grad, model.parameters())</span><br><span class="line">tot_params = sum([np.prod(p.size()) <span class="keyword">for</span> p <span class="keyword">in</span> model_parameters])</span><br><span class="line"></span><br><span class="line"><span class="comment"># approach 2 (count the trainable params)</span></span><br><span class="line">total_params = sum(p.numel() <span class="keyword">for</span> p <span class="keyword">in</span> model.parameters() <span class="keyword">if</span> p.requires_grad)</span><br></pre></td></tr></tbody></table></figure>
+<h2 id="Configuration-error"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Configuration-error" class="headerlink" title="Configuration error"></a>Configuration error</h2><h2 id="MacOSX"><a href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#MacOSX" class="headerlink" title="MacOSX"></a>MacOSX</h2><p><code>import torch</code> error</p>
+<figure class="highlight bash"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import torch</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">  File <span class="string">"/.../lib/python3.6/site-packages/torch/__init__.py"</span>, line 79, <span class="keyword">in</span> &lt;module&gt;</span><br><span class="line">    from torch._C import *</span><br><span class="line">  ...</span><br><span class="line">ImportError: dlopen(/.../lib/python3.6/site-packages/torch/_C.cpython-36m-darwin.so, 9): Library not loaded: /usr/<span class="built_in">local</span>/opt/libomp/lib/libomp.dylib</span><br><span class="line">  Referenced from: /.../lib/python3.6/site-packages/torch/lib/libshm.dylib</span><br><span class="line">  Reason: image not found</span><br><span class="line">  </span><br><span class="line"><span class="comment"># solution </span></span><br><span class="line">$ brew install libomp</span><br></pre></td></tr></tbody></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>Thanks for your reward!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById(&#39;QR&#39;); if (qr.style.display === &#39;none&#39;) {qr.style.display=&#39;block&#39;;} else {qr.style.display=&#39;none&#39;}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <a href="./Tricks of PyTorch _ CYK&#39;s notepad_files/wechatpay.jpg" class="fancybox fancybox.image" rel="group"><img id="wechat_qr" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/wechatpay.jpg" alt="Yekun CHAI WeChat Pay"></a>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="https://ychai.uk/notes/tags/PyTorch/" rel="tag"> <i class="fa fa-tag"></i> PyTorch</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="https://ychai.uk/notes/2019/08/28/NN/go-deeper-in-Convolutions-a-Peek/" rel="next" title="Go Deeper in Convolutions: a Peek ">
+                <i class="fa fa-chevron-left"></i> Go Deeper in Convolutions: a Peek 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="https://ychai.uk/notes/2019/09/10/Programming/Implementation-Magic-Misc-in-ML/" rel="prev" title="Implementation Misc in RL/NLP/CV">
+                Implementation Misc in RL/NLP/CV <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments" style="opacity: 1; display: block;">
+      <div id="disqus_thread"><iframe id="dsq-app6429" name="dsq-app6429" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 394px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first" style="top: 5px; transform: rotateZ(-45deg); width: 100%;"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle" style="opacity: 0;"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last" style="top: -5px; transform: rotateZ(45deg); width: 100%;"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar sidebar-active" style="display: block; width: 320px;">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel" style="">
+        <div class="site-overview" style="max-height: 874.5px;">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person" style="opacity: 1; display: block; transform: translateX(0px);">
+            
+              <img class="site-author-image" itemprop="image" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/Calton.jpg" alt="Yekun CHAI">
+            
+              <p class="site-author-name" itemprop="name">Yekun CHAI</p>
+              <p class="site-description motion-element" itemprop="description" style="opacity: 1; display: block; transform: translateX(0px);">THE LEARNED CAN SEE TWICE.</p>
+          </div>
+
+          <nav class="site-state motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="https://ychai.uk/notes/archives/">
+              
+                  <span class="site-state-item-count">48</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="https://ychai.uk/notes/categories/index.html">
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="https://ychai.uk/notes/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element" style="opacity: 1; display: block; transform: translateX(0px);">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/cyk1337" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:chaiyekun@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/9479335/cyk" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i></a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://instagram.com/chris.chai1224" target="_blank" title="Instagram">
+                      
+                        <i class="fa fa-fw fa-instagram"></i></a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+            <div class="cc-license motion-element" itemprop="license" style="opacity: 1; display: block; transform: translateX(0px);">
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+                <img src="./Tricks of PyTorch _ CYK&#39;s notepad_files/cc-by-nc-sa.svg" alt="Creative Commons">
+              </a>
+            </div>
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active" style="opacity: 1; display: block; transform: translateX(0px);">
+          <div class="post-toc" style="max-height: 874.5px;">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1 active"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Basic-op"><span class="nav-number">1.</span> <span class="nav-text">Basic op</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#numpy-to-from-tensor"><span class="nav-number">1.1.</span> <span class="nav-text">numpy to/from tensor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#contiguous"><span class="nav-number">1.2.</span> <span class="nav-text">contiguous</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Parameter-v-s-register-buffer"><span class="nav-number">1.3.</span> <span class="nav-text">Parameter v.s. register_buffer</span></a></li><li class="nav-item nav-level-2 active"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Multiplication"><span class="nav-number">1.4.</span> <span class="nav-text">Multiplication</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#torch-einsum"><span class="nav-number">1.4.1.</span> <span class="nav-text">torch.einsum</span></a></li><li class="nav-item nav-level-3 active active-current"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#torch-ger"><span class="nav-number">1.4.2.</span> <span class="nav-text">torch.ger</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#dimension"><span class="nav-number">1.5.</span> <span class="nav-text">dimension</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#nn-Parameter"><span class="nav-number">1.6.</span> <span class="nav-text">nn.Parameter</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Tensor"><span class="nav-number">2.</span> <span class="nav-text">Tensor</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#byte"><span class="nav-number">2.1.</span> <span class="nav-text">byte()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#topk"><span class="nav-number">2.2.</span> <span class="nav-text">topk()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Loss-functions"><span class="nav-number">3.</span> <span class="nav-text">Loss functions</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#NLLLoss"><span class="nav-number">3.1.</span> <span class="nav-text">NLLLoss</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optim"><span class="nav-number">4.</span> <span class="nav-text">Optim</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Per-parameter-optim"><span class="nav-number">4.1.</span> <span class="nav-text">Per-parameter optim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optim-step"><span class="nav-number">4.2.</span> <span class="nav-text">Optim step</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optimizer-step"><span class="nav-number">4.2.1.</span> <span class="nav-text">Optimizer.step()</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optim-algorithms"><span class="nav-number">4.3.</span> <span class="nav-text">Optim algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Optimizer-step-closure"><span class="nav-number">4.3.1.</span> <span class="nav-text">Optimizer.step(closure)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Adjust-learning-rate"><span class="nav-number">4.3.2.</span> <span class="nav-text">Adjust learning rate</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#gradient-clipping"><span class="nav-number">4.4.</span> <span class="nav-text">gradient clipping</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#NaN"><span class="nav-number">4.5.</span> <span class="nav-text">NaN</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Count-the-parameter-numbers"><span class="nav-number">4.6.</span> <span class="nav-text">Count the parameter numbers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#Configuration-error"><span class="nav-number">4.7.</span> <span class="nav-text">Configuration error</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="https://ychai.uk/notes/2019/09/06/Programming/Tricks-of-PyTorch/#MacOSX"><span class="nav-number">4.8.</span> <span class="nav-text">MacOSX</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top back-to-top-on">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>32</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">© <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yekun CHAI</span>
+
+  
+</div>
+
+
+
+
+
+<div>
+<script async="" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display: inline;">
+    <span id="busuanzi_value_site_pv">5125</span> views
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display: inline;">
+    <span id="busuanzi_value_site_uv">1974</span> visitors
+</span>
+</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/index.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/fastclick.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/jquery.lazyload.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/velocity.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/velocity.ui.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/jquery.fancybox.pack.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/canvas-nest.min.js"></script><canvas id="c_n12" width="1792" height="969" style="position: fixed; top: 0px; left: 0px; z-index: -1; opacity: 0.5;"></canvas>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/utils.js"></script>
+
+  <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/motion.js"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/scrollspy.js"></script>
+<script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/post-details.js"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/bootstrap.js"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/count.js" async=""></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://cyk1337.github.io/notes/2019/09/06/Programming/Tricks-of-PyTorch/';
+          this.page.identifier = '2019/09/06/Programming/Tricks-of-PyTorch/';
+          this.page.title = 'Tricks of PyTorch';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://cyk0.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/notes/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config;executed=true">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config;executed=true">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script src="./Tricks of PyTorch _ CYK&#39;s notepad_files/MathJax.js" id=""></script>
+  
+
+
+  
+  <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/js.cookie.js"></script>
+  <script type="text/javascript" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/scroll-cookie.js"></script>
+
+
+  
+
+<script src="./Tricks of PyTorch _ CYK&#39;s notepad_files/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/notes/live2dw/assets/tororo.model.json"},"display":{"superSample":2,"width":120,"height":200,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.1},"react":{"opacityDefault":0.8,"opacityOnHover":0.2},"log":false});</script>
+
+<iframe style="display: none;" src="./Tricks of PyTorch _ CYK&#39;s notepad_files/saved_resource(1).html"></iframe><div id="live2d-widget"><canvas id="live2dcanvas" width="240" height="400" style="position: fixed; opacity: 0.8; left: 0px; bottom: -20px; z-index: 99999; pointer-events: none;"></canvas></div></body><editor-card style="animation: initial; transition: initial; color: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: initial; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphens: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 0px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; page: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 0px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: initial; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-margin-collapse: initial; -webkit-margin-bottom-collapse: initial; -webkit-margin-top-collapse: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></editor-card></html>

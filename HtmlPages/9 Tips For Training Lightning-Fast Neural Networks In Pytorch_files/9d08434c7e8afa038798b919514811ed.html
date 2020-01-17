@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<!-- saved from url=(0069)https://towardsdatascience.com/media/9d08434c7e8afa038798b919514811ed -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>9t_14.py – Medium</title><meta name="description" content="You can&#39;t perform that action at this time. You signed in with another tab or window. You signed out in another tab or window. Reload to refresh your session. Reload to refresh your session."><meta name="twitter:widgets:csp" content="on"><meta name="robots" content="noindex"><!--<base target="_blank">--><base href="." target="_blank"><style>body {text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family: "ff-tisa-web-pro", Georgia, Cambria, "Times New Roman", Times, serif; font-weight: 400; color: #333332; font-size: 18px; line-height: 1.4; margin: 0; background-color: white; overflow: hidden;}iframe {max-width: 100%;}</style></head><body><style>.gist .gist-file { margin-bottom: 0 !important; }.gist { text-rendering: auto; }</style><script src="./a59f97c0ca3df959bc32fcd50dacd5c5.js" charset="utf-8"></script><link rel="stylesheet" href="./gist-embed-400c181cb6431951ea5479cf30c36933.css"><div id="gist97509692" class="gist">
+    <div class="gist-file">
+      <div class="gist-data">
+        <div class="js-gist-file-update-container js-task-list-container file-box">
+  <div id="file-9t_14-py" class="file">
+    
+
+  <div itemprop="text" class="Box-body p-0 blob-wrapper data type-python ">
+      
+<table class="highlight tab-size js-file-line-container" data-tab-size="8">
+      <tbody><tr>
+        <td id="file-9t_14-py-L1" class="blob-num js-line-number" data-line-number="1"></td>
+        <td id="file-9t_14-py-LC1" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">tng_dataloader</span>():</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L2" class="blob-num js-line-number" data-line-number="2"></td>
+        <td id="file-9t_14-py-LC2" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">d</span> <span class="pl-c1">=</span> <span class="pl-v">MNIST</span>()</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L3" class="blob-num js-line-number" data-line-number="3"></td>
+        <td id="file-9t_14-py-LC3" class="blob-code blob-code-inner js-file-line">     </td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L4" class="blob-num js-line-number" data-line-number="4"></td>
+        <td id="file-9t_14-py-LC4" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># 4: Add distributed sampler</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L5" class="blob-num js-line-number" data-line-number="5"></td>
+        <td id="file-9t_14-py-LC5" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># sampler sends a portion of tng data to each machine</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L6" class="blob-num js-line-number" data-line-number="6"></td>
+        <td id="file-9t_14-py-LC6" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">dist_sampler</span> <span class="pl-c1">=</span> <span class="pl-v">DistributedSampler</span>(<span class="pl-s1">dataset</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L7" class="blob-num js-line-number" data-line-number="7"></td>
+        <td id="file-9t_14-py-LC7" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">dataloader</span> <span class="pl-c1">=</span> <span class="pl-v">DataLoader</span>(<span class="pl-s1">d</span>, <span class="pl-s1">shuffle</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">sampler</span><span class="pl-c1">=</span><span class="pl-s1">dist_sampler</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L8" class="blob-num js-line-number" data-line-number="8"></td>
+        <td id="file-9t_14-py-LC8" class="blob-code blob-code-inner js-file-line">     </td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L9" class="blob-num js-line-number" data-line-number="9"></td>
+        <td id="file-9t_14-py-LC9" class="blob-code blob-code-inner js-file-line"><span class="pl-k">def</span> <span class="pl-en">main_process_entrypoint</span>(<span class="pl-s1">gpu_nb</span>):</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L10" class="blob-num js-line-number" data-line-number="10"></td>
+        <td id="file-9t_14-py-LC10" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># 2: set up connections  between all gpus across all machines</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L11" class="blob-num js-line-number" data-line-number="11"></td>
+        <td id="file-9t_14-py-LC11" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># all gpus connect to a single GPU "root"</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L12" class="blob-num js-line-number" data-line-number="12"></td>
+        <td id="file-9t_14-py-LC12" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># the default uses env://</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L13" class="blob-num js-line-number" data-line-number="13"></td>
+        <td id="file-9t_14-py-LC13" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">world</span> <span class="pl-c1">=</span> <span class="pl-s1">nb_gpus</span> <span class="pl-c1">*</span> <span class="pl-s1">nb_nodes</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L14" class="blob-num js-line-number" data-line-number="14"></td>
+        <td id="file-9t_14-py-LC14" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">dist</span>.<span class="pl-en">init_process_group</span>(<span class="pl-s">"nccl"</span>, <span class="pl-s1">rank</span><span class="pl-c1">=</span><span class="pl-s1">gpu_nb</span>, <span class="pl-s1">world_size</span><span class="pl-c1">=</span><span class="pl-s1">world</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L15" class="blob-num js-line-number" data-line-number="15"></td>
+        <td id="file-9t_14-py-LC15" class="blob-code blob-code-inner js-file-line">     </td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L16" class="blob-num js-line-number" data-line-number="16"></td>
+        <td id="file-9t_14-py-LC16" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># 3: wrap model in DPP</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L17" class="blob-num js-line-number" data-line-number="17"></td>
+        <td id="file-9t_14-py-LC17" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">torch</span>.<span class="pl-s1">cuda</span>.<span class="pl-en">set_device</span>(<span class="pl-s1">gpu_nb</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L18" class="blob-num js-line-number" data-line-number="18"></td>
+        <td id="file-9t_14-py-LC18" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">model</span>.<span class="pl-en">cuda</span>(<span class="pl-s1">gpu_nb</span>)</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L19" class="blob-num js-line-number" data-line-number="19"></td>
+        <td id="file-9t_14-py-LC19" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">model</span> <span class="pl-c1">=</span> <span class="pl-v">DistributedDataParallel</span>(<span class="pl-s1">model</span>, <span class="pl-s1">device_ids</span><span class="pl-c1">=</span>[<span class="pl-s1">gpu_nb</span>])</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L20" class="blob-num js-line-number" data-line-number="20"></td>
+        <td id="file-9t_14-py-LC20" class="blob-code blob-code-inner js-file-line">     </td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L21" class="blob-num js-line-number" data-line-number="21"></td>
+        <td id="file-9t_14-py-LC21" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># train your model now...</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L22" class="blob-num js-line-number" data-line-number="22"></td>
+        <td id="file-9t_14-py-LC22" class="blob-code blob-code-inner js-file-line">     </td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L23" class="blob-num js-line-number" data-line-number="23"></td>
+        <td id="file-9t_14-py-LC23" class="blob-code blob-code-inner js-file-line"><span class="pl-k">if</span>  <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">'__main__'</span>:</td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L24" class="blob-num js-line-number" data-line-number="24"></td>
+        <td id="file-9t_14-py-LC24" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># 1: spawn number of processes</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L25" class="blob-num js-line-number" data-line-number="25"></td>
+        <td id="file-9t_14-py-LC25" class="blob-code blob-code-inner js-file-line">     <span class="pl-c"># your cluster will call main for each machine</span></td>
+      </tr>
+      <tr>
+        <td id="file-9t_14-py-L26" class="blob-num js-line-number" data-line-number="26"></td>
+        <td id="file-9t_14-py-LC26" class="blob-code blob-code-inner js-file-line">     <span class="pl-s1">mp</span>.<span class="pl-en">spawn</span>(<span class="pl-s1">main_process_entrypoint</span>, <span class="pl-s1">nprocs</span><span class="pl-c1">=</span><span class="pl-c1">8</span>)</td>
+      </tr>
+</tbody></table>
+
+
+  </div>
+
+  </div>
+</div>
+
+      </div>
+      <div class="gist-meta">
+        <a href="https://gist.github.com/williamFalcon/a59f97c0ca3df959bc32fcd50dacd5c5/raw/49df219e2eba873a807468a0050a39dae4ffb328/9t_14.py" style="float:right">view raw</a>
+        <a href="https://gist.github.com/williamFalcon/a59f97c0ca3df959bc32fcd50dacd5c5#file-9t_14-py">9t_14.py</a>
+        hosted with ❤ by <a href="https://github.com/">GitHub</a>
+      </div>
+    </div>
+</div>
+<script>var height = -1; var delayMs = 200; if (document) {document.domain = document.domain;}function notifyResize(height) {height = height ? height : document.documentElement.offsetHeight; var resized = false; if (window.donkey && donkey.resize) {donkey.resize(height);var elements = document.getElementsByClassName("gist-data"); for (var i = 0; i < elements.length; i++) {elements[i].style.overflow = "visible"}resized = true;}if (parent && parent._resizeIframe) {var obj = {iframe: window.frameElement, height: height}; parent._resizeIframe(obj); resized = true;}if (window.location && window.location.hash === "#amp=1" && window.parent && window.parent.postMessage) {window.parent.postMessage({sentinel: "amp", type: "embed-size", height: height}, "*");}if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.resize) {window.webkit.messageHandlers.resize.postMessage(height); resized = true;}return resized;}function maybeResize() {try {if (document.documentElement.offsetHeight != height && notifyResize()) {height = document.documentElement.offsetHeight;}delayMs = Math.min(delayMs * 2, 1000000); setTimeout(maybeResize, delayMs);} catch(error) {console.log('maybeResize error: ', error)}}maybeResize();</script></body></html>

@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://www.dataquest.io/blog/numpy-cheat-sheet/ -->
+<html lang="en-US" class=""><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style data-merge-styles="true"></style>
+		<!--[if lt IE 9]>
+	<script src="https://www.dataquest.io/wp-content/themes/ignition/js/html5/dist/html5shiv.js"></script>
+	<script src="//css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+	<![endif]-->
+	<!--[if IE 8]>
+	<link rel="stylesheet" type="text/css" href="https://www.dataquest.io/wp-content/themes/ignition/css/ie8.css"/>
+	<![endif]-->
+	<!--[if IE 7]>
+	<link rel="stylesheet" type="text/css" href="https://www.dataquest.io/wp-content/themes/ignition/css/ie7.css"/>
+	<![endif]-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	
+			<script async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/qevents.js"></script><script src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/pixel.js" async=""></script><script async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/profitwell.js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/analytics.js"></script><script src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/1208964489120563" async=""></script><script src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/identity.js" async=""></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/fbevents.js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/amplitude-5.2.2-min.gz.js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/gtm.js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/insight.min.js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/mf5oz4we"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/fbds.js"></script><script type="text/javascript" async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/analytics.min.js"></script><script>
+  !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+  analytics.load("BJhKYEXejzjqXq7xQDFI6N0M5W7HBAH5");
+  analytics.page();
+  }}();
+</script>
+<link rel="stylesheet" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/nmj4kuc.css">
+
+
+			<title>NumPy Cheat Sheet — Python for Data Science – Dataquest</title>
+
+<!-- This site is optimized with the Yoast SEO Premium plugin v12.8 - https://yoast.com/wordpress/plugins/seo/ -->
+<meta name="description" content="Download a free NumPy Cheatsheet to help you work with data in Python. Includes importing, exporting, filtering, sorting, scalar and vector maths and more.">
+<meta name="robots" content="max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<link rel="canonical" href="https://www.dataquest.io/blog/numpy-cheat-sheet/">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NumPy Cheat Sheet — Python for Data Science – Dataquest">
+<meta property="og:description" content="Download a free NumPy Cheatsheet to help you work with data in Python. Includes importing, exporting, filtering, sorting, scalar and vector maths and more.">
+<meta property="og:url" content="https://www.dataquest.io/blog/numpy-cheat-sheet/">
+<meta property="og:site_name" content="Dataquest">
+<meta property="article:publisher" content="https://www.facebook.com/dataquestio">
+<meta property="article:tag" content="Learn Python">
+<meta property="article:tag" content="Numpy">
+<meta property="article:tag" content="Resources">
+<meta property="article:section" content="Cheat Sheets">
+<meta property="article:published_time" content="2017-04-13T00:00:00+00:00">
+<meta property="article:modified_time" content="2019-06-10T08:53:15+00:00">
+<meta property="og:updated_time" content="2019-06-10T08:53:15+00:00">
+<meta property="og:image" content="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-numpy.jpg">
+<meta property="og:image:secure_url" content="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-numpy.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="600">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:description" content="Download a free NumPy Cheatsheet to help you work with data in Python. Includes importing, exporting, filtering, sorting, scalar and vector maths and more.">
+<meta name="twitter:title" content="NumPy Cheat Sheet — Python for Data Science – Dataquest">
+<meta name="twitter:site" content="@dataquestio">
+<meta name="twitter:image" content="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-numpy.jpg">
+<meta name="twitter:creator" content="@dataquestio">
+<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--main">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.dataquest.io/#organization","name":"Dataquest","url":"https://www.dataquest.io/","sameAs":["https://www.facebook.com/dataquestio","https://www.linkedin.com/company/dataquest-io","https://twitter.com/dataquestio"],"logo":{"@type":"ImageObject","@id":"https://www.dataquest.io/#logo","url":"https://www.dataquest.io/wp-content/uploads/2019/01/Logo-On-Light-BLUE.png","width":2001,"height":427,"caption":"Dataquest"},"image":{"@id":"https://www.dataquest.io/#logo"}},{"@type":"WebSite","@id":"https://www.dataquest.io/#website","url":"https://www.dataquest.io/","name":"Dataquest","description":"Aquire the skills you need to start and advance your data science career.","publisher":{"@id":"https://www.dataquest.io/#organization"},"potentialAction":{"@type":"SearchAction","target":"https://www.dataquest.io/?s={search_term_string}","query-input":"required name=search_term_string"}},{"@type":"ImageObject","@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#primaryimage","url":"https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-numpy.jpg","width":1200,"height":600},{"@type":"WebPage","@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#webpage","url":"https://www.dataquest.io/blog/numpy-cheat-sheet/","inLanguage":"en-US","name":"NumPy Cheat Sheet \u2014 Python for Data Science &ndash; Dataquest","isPartOf":{"@id":"https://www.dataquest.io/#website"},"primaryImageOfPage":{"@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#primaryimage"},"datePublished":"2017-04-13T00:00:00+00:00","dateModified":"2019-06-10T08:53:15+00:00","description":"Download a free NumPy Cheatsheet to help you work with data in Python. Includes importing, exporting, filtering, sorting, scalar and vector maths and more."},{"@type":"Article","@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#article","isPartOf":{"@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#webpage"},"author":{"@id":"https://www.dataquest.io/#/schema/person/54c1172c792879ccebbb1aecafa3e133"},"headline":"NumPy Cheat Sheet \u2014 Python for Data Science","datePublished":"2017-04-13T00:00:00+00:00","dateModified":"2019-06-10T08:53:15+00:00","commentCount":0,"mainEntityOfPage":{"@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#webpage"},"publisher":{"@id":"https://www.dataquest.io/#organization"},"image":{"@id":"https://www.dataquest.io/blog/numpy-cheat-sheet/#primaryimage"},"keywords":"Learn Python,Numpy,Resources","articleSection":"Cheat Sheets"},{"@type":["Person"],"@id":"https://www.dataquest.io/#/schema/person/54c1172c792879ccebbb1aecafa3e133","name":"Josh Devlin","image":{"@type":"ImageObject","@id":"https://www.dataquest.io/#authorlogo","url":"https://secure.gravatar.com/avatar/488062fe3e2d6bbf1da752fa6d89c37f?s=96&d=identicon&r=g","caption":"Josh Devlin"},"description":"Data Scientist at Dataquest.io. Loves Data and Aussie Rules Football. Australian living in Texas.","sameAs":[]}]}</script>
+<!-- / Yoast SEO Premium plugin. -->
+
+<link rel="dns-prefetch" href="https://s.w.org/">
+		<script type="text/javascript">
+			window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/72x72\/","ext":".png","svgUrl":"https:\/\/s.w.org\/images\/core\/emoji\/12.0.0-1\/svg\/","svgExt":".svg","source":{"concatemoji":"https:\/\/www.dataquest.io\/wp-includes\/js\/wp-emoji-release.min.js?ver=5.3.2"}};
+			!function(e,a,t){var r,n,o,i,p=a.createElement("canvas"),s=p.getContext&&p.getContext("2d");function c(e,t){var a=String.fromCharCode;s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,e),0,0);var r=p.toDataURL();return s.clearRect(0,0,p.width,p.height),s.fillText(a.apply(this,t),0,0),r===p.toDataURL()}function l(e){if(!s||!s.fillText)return!1;switch(s.textBaseline="top",s.font="600 32px Arial",e){case"flag":return!c([127987,65039,8205,9895,65039],[127987,65039,8203,9895,65039])&&(!c([55356,56826,55356,56819],[55356,56826,8203,55356,56819])&&!c([55356,57332,56128,56423,56128,56418,56128,56421,56128,56430,56128,56423,56128,56447],[55356,57332,8203,56128,56423,8203,56128,56418,8203,56128,56421,8203,56128,56430,8203,56128,56423,8203,56128,56447]));case"emoji":return!c([55357,56424,55356,57342,8205,55358,56605,8205,55357,56424,55356,57340],[55357,56424,55356,57342,8203,55358,56605,8203,55357,56424,55356,57340])}return!1}function d(e){var t=a.createElement("script");t.src=e,t.defer=t.type="text/javascript",a.getElementsByTagName("head")[0].appendChild(t)}for(i=Array("flag","emoji"),t.supports={everything:!0,everythingExceptFlag:!0},o=0;o<i.length;o++)t.supports[i[o]]=l(i[o]),t.supports.everything=t.supports.everything&&t.supports[i[o]],"flag"!==i[o]&&(t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&t.supports[i[o]]);t.supports.everythingExceptFlag=t.supports.everythingExceptFlag&&!t.supports.flag,t.DOMReady=!1,t.readyCallback=function(){t.DOMReady=!0},t.supports.everything||(n=function(){t.readyCallback()},a.addEventListener?(a.addEventListener("DOMContentLoaded",n,!1),e.addEventListener("load",n,!1)):(e.attachEvent("onload",n),a.attachEvent("onreadystatechange",function(){"complete"===a.readyState&&t.readyCallback()})),(r=t.source||{}).concatemoji?d(r.concatemoji):r.wpemoji&&r.twemoji&&(d(r.twemoji),d(r.wpemoji)))}(window,document,window._wpemojiSettings);
+		</script><script src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+		<style type="text/css">
+img.wp-smiley,
+img.emoji {
+	display: inline !important;
+	border: none !important;
+	box-shadow: none !important;
+	height: 1em !important;
+	width: 1em !important;
+	margin: 0 .07em !important;
+	vertical-align: -0.1em !important;
+	background: none !important;
+	padding: 0 !important;
+}
+</style>
+	<link rel="stylesheet" id="wp-block-library-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/style.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="searchandfilter-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/style.css" type="text/css" media="all">
+<link rel="stylesheet" id="bodhi-svgs-attachment-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/svgs-attachment.css" type="text/css" media="all">
+<link rel="stylesheet" id="l2h_style-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/latex.min.css" type="text/css" media="screen, print">
+<link rel="stylesheet" id="l2h_print_style-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/print.min.css" type="text/css" media="print">
+<link rel="stylesheet" id="jquery-data-tables-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/datatables.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="posts-data-table-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/posts-data-table.min.css" type="text/css" media="all">
+<link rel="stylesheet" id="ignition-style-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/style(1).css" type="text/css" media="all">
+<link rel="stylesheet" id="thrive-reset-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/reset.css" type="text/css" media="all">
+<link rel="stylesheet" id="thrive-main-style-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/main_navy.css" type="text/css" media="all">
+<link rel="stylesheet" id="chld_thm_cfg_separate-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/ctc-style.css" type="text/css" media="all">
+<link rel="stylesheet" id="thrive-apprentice-style-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/apprentice_green.css" type="text/css" media="all">
+<link rel="stylesheet" id="prism-theme-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/prism-css.min.css" type="text/css" media="all">
+<script type="text/javascript">
+/* <![CDATA[ */
+var THO_Head = {"variations":[],"post_id":"1955","element_tag":"thrive_headline","woo_tag":"tho_woo"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/header.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/jquery.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/jquery-migrate.min.js"></script>
+<link rel="https://api.w.org/" href="https://www.dataquest.io/wp-json/">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://www.dataquest.io/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.dataquest.io/wp-includes/wlwmanifest.xml"> 
+<meta name="generator" content="WordPress 5.3.2">
+<link rel="shortlink" href="https://www.dataquest.io/?p=1955">
+<link rel="alternate" type="application/json+oembed" href="https://www.dataquest.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.dataquest.io%2Fblog%2Fnumpy-cheat-sheet%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://www.dataquest.io/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.dataquest.io%2Fblog%2Fnumpy-cheat-sheet%2F&amp;format=xml">
+<style type="text/css" id="tve_global_variables">:root{--tcb-color-0:rgb(35, 42, 61);--tcb-color-1:rgb(132, 132, 157);--tcb-color-2:rgb(77, 127, 223);--tcb-color-3:rgb(97, 209, 153);--tcb-color-4:rgb(0, 0, 0);--tcb-color-5:rgb(0, 0, 0);--tcb-color-6:rgb(0, 0, 0);--tcb-color-7:rgb(212, 212, 212);--tcb-color-8:rgb(137, 138, 142);--tcb-color-9:rgb(242, 243, 247);--tcb-color-10:rgba(35, 42, 61, 0.77);--tcb-color-11:rgb(97, 209, 153);--tcb-color-12:rgb(255, 255, 255);--tcb-color-13:rgb(35, 42, 61);--tcb-color-14:rgb(77, 127, 223);--tcb-gradient-0:linear-gradient(90deg, rgb(97, 209, 153) 0%, rgb(78, 126, 222) 98%);}</style>	<script>
+		/************* Helper functions ******************/
+		function isInArray(value, array) {
+		  return array.indexOf(value) > -1;
+		}
+		function getHostFromUrl(url) {
+			var a=document.createElement('a');
+			a.href=url;
+			return a.hostname;
+		}
+		function getUrlVar(key){
+			var result = new RegExp(key + "=([^&]*)", "i").exec(window.location.search); 
+			return result && unescape(result[1]) || ""; 
+		}
+		/************* End of Helper Functions ******************/
+		
+		
+		/******************** Cookie helper functions ************************/
+		function checkCookieExists(cookie_name) {
+			return document.cookie.indexOf(cookie_name + '=') !== -1;
+		}
+		function setCookie(name,value,domain,days) {
+			var expires = "";
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime() + (days*24*60*60*1000));
+				expires = "; expires=" + date.toUTCString();
+			}
+			document.cookie = name + "=" + (value || "")  + expires +  ";domain=" + domain + "; path=/";
+		}
+		/******************** End Of Cookie helper functions ******************/
+		
+		function setRefererUrlCookie() {
+			var cookie_domain = '.dataquest.io'
+			var internal_hosts =  ['www.dataquest.io', 'dataquest.io', ]
+
+			/* Set Landing page cookie if it doesnot exist */
+			if (!checkCookieExists('dataquest-cac-landing-page')) {
+				setCookie('dataquest-cac-landing-page', window.location.pathname, cookie_domain, 7)
+			}
+			
+			var referrer = document.referrer
+			if (!referrer) {
+				return
+			}
+			host = getHostFromUrl(referrer)
+			
+			/* If referrer is not coming from dataquest, set it in cookie and override landing_page cookie */
+			if (!isInArray(host, internal_hosts)) {
+				setCookie('dataquest-cac-referer-url', referrer, cookie_domain, 365)
+				setCookie('dataquest-cac-landing-page', window.location.pathname, cookie_domain, 365)
+			}
+		}
+
+		function setUTMCodesCookies() {
+			var utm_codes = ['utm_source','utm_campaign','utm_content','utm_term','utm_medium']
+			var cookie_prefix = 'dataquest-cac-'
+			var cookie_domain = '.dataquest.io'
+			
+			for (code in utm_codes) {
+				var utm_code = utm_codes[code]
+				var code_value = getUrlVar(utm_code)
+				var cookie_name = cookie_prefix + utm_code.replace('_', '-')
+				
+				if (code_value) {
+					setCookie(cookie_name, code_value, cookie_domain, 365)
+				}
+			}
+		}
+									
+		
+		function setLandingPageLastTouchCookie() {
+			var cookie_domain = '.dataquest.io'
+			setCookie('dataquest-cac-landing-page-last-touch', window.location.pathname, cookie_domain, 365)
+
+		}
+		
+		setUTMCodesCookies()
+		setRefererUrlCookie()
+		setLandingPageLastTouchCookie()
+
+	</script>
+<style>
+.latex_thm, .latex_lem, .latex_cor, .latex_defn, .latex_prop, .latex_rem{
+  margin:0;padding:5px;
+  background: lightcyan;
+  border: solid 3px green;
+  -moz-border-radius: 1.0em;
+  -webkit-border-radius: 7px;
+  box-shadow: 0 0 0 green;
+}
+.latex_em{
+  font-style: italic;
+}
+.bibtex_title{
+  font-weight:bold;
+  color: #004b33;
+}
+a.bibtex_title{
+  text-decoration: none;
+}
+.latex_proof::after{
+  content: "\220E";
+  color: gray;
+  text-align: right;
+  display: block;
+  font-size: 1.2em;
+}
+</style>
+        <style type="text/css">
+            .hidden {display:none;}
+        </style>
+        <script type="text/javascript">
+         jQuery('html').addClass('hidden');
+	            
+	 jQuery(document).ready(function($) {		            
+	    $('html').removeClass('hidden');	            
+	 });  
+        </script>
+    		<style type="text/css">body { background:#ffffff; }.cnt article h1.entry-title a { color:#0a0a0a; }.cnt article h2.entry-title a { color:#0a0a0a; }.bSe h1 { color:#0a0a0a; }.bSe h2 { color:#0a0a0a; }.bSe h3 { color:#0a0a0a; }.bSe h4 { color:#0a0a0a; }.bSe h5 { color:#0a0a0a; }.bSe h6 { color:#0a0a0a; }.cnt article p { color:#0a0a0a; }.cnt .bSe article { color:#0a0a0a; }.cnt article h1 a, .tve-woocommerce .bSe .awr .entry-title, .tve-woocommerce .bSe .awr .page-title{font-family:Open Sans,sans-serif;}.bSe h1{font-family:Open Sans,sans-serif;}.bSe h2,.tve-woocommerce .bSe h2{font-family:Open Sans,sans-serif;}.bSe h3,.tve-woocommerce .bSe h3{font-family:Open Sans,sans-serif;}.bSe h4{font-family:Open Sans,sans-serif;}.bSe h5{font-family:Open Sans,sans-serif;}.bSe h6{font-family:Open Sans,sans-serif;}.cnt, .bp-t, .tve-woocommerce .product p, .tve-woocommerce .products p{font-family:Open Sans,sans-serif;font-weight:400;}article strong {font-weight: bold;}.bSe h1, .bSe .entry-title { font-size:36px; }.cnt { font-size:14px; }.out { font-size:14px; }.thrivecb { font-size:14px; }.aut p { font-size:14px; }.cnt p { line-height:2em; }.lhgh { line-height:2em; }.dhgh { line-height:2em; }.dhgh { font-size:14px; }.lhgh { font-size:14px; }.thrivecb { line-height:2em; }.cnt .cmt, .cnt .acm { background-color:#4d7fdf; }.trg { border-color:#4d7fdf transparent transparent; }.str { border-color: transparent #4d7fdf transparent transparent; }.brd ul li { color:#4d7fdf; }.bSe a { color:#4d7fdf; }.bSe .faq h4{font-family:Open Sans,sans-serif;font-weight:400;}article strong {font-weight: bold;}header ul.menu > li > a { color:#ffffff; }header .phone .apnr, header .phone .apnr:before, header .phone .fphr { color:#ffffff; }header ul.menu > li > a:hover { color:#ffffff; }header .phone:hover .apnr, header .phone:hover .apnr:before, header .phone:hover .fphr { color:#ffffff; }header nav > ul > li.current_page_item > a:hover { color:#ffffff; }header nav > ul > li.current_menu_item > a:hover { color:#ffffff; }header nav > ul > li.current_menu_item > a:hover { color:#ffffff; }header nav > ul > li > a:active { color:#ffffff; }header #logo > a > img { max-width:180px; }header ul.menu > li.h-cta > a { color:#FFFFFF!important; }header ul.menu > li.h-cta >a  { background:#ffffff; }header ul.menu > li.h-cta > a { border-color:#ffffff; }header ul.menu > li.h-cta > a:hover { color:#FFFFFF!important; }header ul.menu > li.h-cta > a:hover { background:#ffffff; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart { background-color:#FFFFFF; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart { border-color:#4d7fdf; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart { color:#4d7fdf; }.product.woocommerce.add_to_cart_inline a.button.product_type_simple.ajax_add_to_cart:hover { background-color:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward { border-color:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward { color:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward:hover { background:#4d7fdf; }.woocommerce p.return-to-shop a.button.wc-backward:hover { color:#FFFFFF; }</style>
+		<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #ffffff; }
+</style>
+	<link rel="icon" href="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-50x50.jpg" sizes="32x32">
+<link rel="icon" href="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-300x300.jpg" sizes="192x192">
+<link rel="apple-touch-icon-precomposed" href="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-300x300.jpg">
+<meta name="msapplication-TileImage" content="https://www.dataquest.io/wp-content/uploads/2019/01/cropped-rocket-icon-300x300.jpg">
+		<style type="text/css" id="wp-custom-css">
+			body  {font-family: ingra, sans-serif; color: #232a3d;}
+
+button, input, select, textarea, h4, h5, h6, .widget-area.sidebar, nav, p, .thrv-styled-list-item, .bSe h4, ol li, ul li  {font-family: ingra, sans-serif; font-weight: 300; color: #232a3d; }
+
+.single-post article, .single-post article ul li, .single-post article p, .single-post article blockquote, .single-post article ol li {line-height: 1.8em; font-size: 15px; font-family: merriweather;}
+
+.page-template-fullwidth-page p, .page-template-default p, .page-template-default ul li, .page-template-default ol li {font-family: ingra, sans-serif; line-height: 1.7em; margin: 0px 0px; font-size: 16px; color: #232a3d!important; font-weight: 300;}
+
+.tcb-button-text {font-family: industry, sans-serif!important; font-weight: 700; letter-spacing: 1px;}
+
+h1, h2, h3 {font-family: industry, sans-serif!important; color: #232a3d!important; font-weight: 700!important;}
+
+.bSe h1 {font-size: 36px!important;}
+
+.scn>ul a:hover, section[id*='nav_menu-'] .scn ul a:hover, .scn ul[id*='menu'] a:hover {margin: 0px;}
+
+.path-box h3 {font-size: 17px!important; font-weight: 900; margin: 0px 0px 5px 0px; line-height: 1em}
+
+.path-box p {line-height: 1.6em; font-size: 14px;}
+
+.path-box a {text-decoration: none!important;}
+
+.path-box-button-text {text-transform: uppercase!important; letter-spacing: 1px;}
+
+
+.post-template-default h1, .post-template-default h2, .post-template-default h3 {padding: 40px 0px 20px}
+
+.post-template-default h4, .post-template-default h5, .post-template-default h6 {padding: 10px 0px 20px}
+
+
+#floating_menu header {padding: 2px!important; height: 58px!important;
+}
+
+header {border-bottom: 0px!important;}
+
+
+.menu, .page_item a, .menu-item a {font-size: 11px; text-transform: UPPERCASE; text-decoration: none; font-weight: 100; line-height: 1em;}
+
+header #logo > a > img {padding: 10px 0px 10px 0px;}
+
+header nav>ul>li.menu-item-has-children:hover>a:after, 
+header nav>ul>li.menu-item-has-children>a:after {color: #ffffff!important; font-weight: 100; }
+
+header nav>ul.menu li.current-menu-item>a, header nav>ul.menu li.current_page_item>a, header nav ul#menu li.current-menu-item>a, header nav ul#menu li.current_page_item>a {color: #ffffff;}
+
+header nav li.col-no-4>ul.sub-menu, header nav li.col-no-4 ul.sub-menu.position_menu {margin-top: 20px;}
+
+header nav>ul>li.menu-item-has-children>a:after {display: none;}
+
+header nav li.has-extended>ul.sub-menu {background: #ffffff;}
+
+header nav li.has-extended>ul.sub-menu li.menu-item {background: transparent; }
+
+header nav li.has-extended>ul.sub-menu li.menu-item a[href] {color: #232a3d;}
+
+header nav li.has-extended>ul.sub-menu li.menu-item a[href]:hover {color: #4d7fdf; background-color: rgb(242, 243, 247);}
+
+#menu-item-11096 a.colch {padding: 18px 8px 8px 8px; font-size: 14px; font-weight: 900;}
+
+#menu-item-11069 a.colch, #menu-item-11053 a.colch, #menu-item-11054 a.colch {color: #ffffff;}
+ 
+
+li.has-extended>ul.sub-menu>li ul.sub-menu li {margin: 0px 0px 0px 0px;}
+
+header nav li.has-extended>ul.sub-menu>li ul.sub-menu li a {line-height: 1.6em; padding: 10px 0px 10px 10px; font-size: 12px;}
+
+@media only screen and (max-width: 769px) {
+	header .hmn .rmn {background-image: none; border: 0px; }
+}
+
+@media only screen and (min-width: 769px) {
+	#menu-item-20221 a {background-color: #61D199; border-radius: 5px;  padding: 6px 8px 5px; margin-top: -6px;}}
+
+@media only screen and (max-width: 768px) {
+	header nav li.has-extended ul.sub-menu li a {display: none;} 
+
+li#menu-item-11094	ul.sub-menu {display: none!important;}
+}
+
+
+.csbwfs-social-widget {
+    z-index: 100!important;
+}
+
+.page-template-default .csbwfs-social-widget, .blog .csbwfs-social-widget {display: none;}
+
+:not(pre) > code[class*="language-"], pre[class*="language-"] {background-color: #000000; border-radius: 3px;}
+
+p code {
+background-color: #e5eff5;
+padding: 1px 3px;
+border-radius: 3px;
+font-size: .95em;
+color: #000000;}
+
+pre {background: #000000; margin-top: -10px;}
+pre code {font-size: 13px; padding: 0px; color: #ffffff; background: #000000;}
+
+code[class*="language-"], pre[class*="language-"] {font-size: 15px; margin-bottom: 20px; margin-top: -10px;}
+
+
+
+.single-post table {width: 85%; margin: 30px auto; }
+
+.single-post table th {background-color: #f4f8fb; /*text-transform: lowercase;*/ color: #232a3d!important;}
+
+.single-post table td, article table th {font-size: 15px; border: 1px solid #e3ecf3; font-family: ingra, sans-serif; }
+
+.single-post h1, .single-post h2, .single-post h3, .single-post h4, .single-post h5 {font-family: merriweather!important;}
+
+.single-post .bSe h1.entry-title {font-size: 38px!important; color: #232a3d!important;}
+.single-post h2 {font-size: 32px; color: #232a3d!important;}
+.single-post h3 {font-size: 29px; color: #232a3d!important;}
+.single-post h4 {font-size: 26px; color: #232a3d!important;}
+.single-post h5 {font-size: 23px; color: #232a3d!important;}
+
+.page-header .page-title {text-transform: none; color: #ffffff; font-weight: normal; letter-spacing: 0em; font-size: 18px; line-height: 24px;}
+
+
+.widgets-list-layout-links  {line-height: 1.3; font-size: 14px}
+
+
+.sidebar .widget .widget-title {font-family: ingra, sans-serif; letter-spacing: 1.5px; padding-bottom: 15px; border-top: 1px solid #e9e9e9!important; padding-top: 25px;}
+
+.site-branding .site-title, .site-branding .site-text-logo {font-size: 20px; color: #ffffff; font-weight: normal; text-transform: none;}
+
+#content img {display: block; margin: 0px auto;}
+
+div table{
+    overflow-x:auto;
+}
+
+.scn ul li a {color: #232a3d;}
+.scn ul li a:hover {color: #4d7fdf;}
+
+
+.err {text-align: center;}
+.err h1 {display: none;}
+.err h4 {display: none;}
+form.lost {
+	display: inline-block; width: 80%;}
+
+.err .csc {text-align: left;}
+
+
+.sAs .srh input.search-field, .sAs .srh .search_field {
+	width: 285px;}
+
+ .srh input.search-field,  .srh .search_field {background-color: #ffffff; box-shadow: none; border-top: 2px solid #31394a; border-left: 2px solid #31394a; border-bottom: 2px solid #31394a; border-right: 0px;}
+
+input.search-field {font-size: 13px; line-height: 15px; padding: 10px;}
+
+input.search-field::-webkit-input-placeholder { 
+  color: transparent;
+}
+input.search-field::-moz-placeholder {
+  color: transparent;
+}
+input.search-field:-ms-input-placeholder { /* IE 10+ */
+  color: transparent;
+}
+	
+input.search-field:-moz-placeholder {
+  color: transparent;
+}
+
+form.srh {margin-left: 0px; padding-top: 5px; }
+
+input.search-field, .search_field {font-size: 1em; font-weight: 100; }
+
+input.search-field, .search-button, .submit_btn {
+    height: 40px; margin: 0px; padding: 0px 0px 0px 5px;
+	}
+
+.search-button, .submit_btn {background-color: #31394a!important; background-image:none; border: none; height: 47px!important;}
+
+.sAs .search-button, .sAs .submit_btn { 
+    width: 50px; z-index: 1000; position: relative;  top: -47px; left: 292px; }
+
+@media only screen and (max-width: 1080px) {
+.sAs .search-button, .sAs .submit_btn { 
+	width: 50px; z-index: 1000; position: relative;  top: -0px; left: 0px; }
+	form.srh {margin-bottom: 20px;}
+	
+	.sAs .srh input.search-field, .sAs .srh .search_field {
+    height: 43px;
+}
+}
+
+
+svg.tcb-icon {
+	color: #61d199; 
+}
+
+.gmt-edd-slack-row {
+	text-align: center;
+}
+
+input#gmt_edd_slack_email {
+  width: 280px;
+	text-align: left;
+	padding: 10px 30px 10px 15px; 
+}
+
+button.gmt-edd-slack-form-button {
+font-size: 16px; line-height: 15px; padding: 14px 30px; background-color: #61D199; color: #ffffff;  margin: 5px 10px; border: 0px; border-radius: 3px; text-transform: uppercase; width: 250px;
+}
+
+.thrv_wrapper.thrv-pricing-table .tcb-pricing-table-box-container .tcb-pt-featured-box .tve-content-box-background {
+    border-top-color: #61d199;
+}
+
+
+.tvo-set12-template.tve_teal .tvo-testimonial-quote {color: #4d7fdf!important;}
+
+.tvo-set12-template.tve_teal .tvo-testimonial-name {color: #4d7fdf!important;}
+
+
+.directory-coursebox p {margin-top: 0px; font-size: 14px; margin-bottom: 22px!important; }
+
+.directory-coursebox .tcb--cols--2 {margin-top: 5px;}
+
+.directory-course-label p {margin: 3px 0px; }
+
+a .thrv-content-box p {color: #ffffff!important; text-decoration: none!important;}
+
+@media only screen and (max-width: 769px) {
+	.directory-coursebox .tcb--cols--2, .directory-coursebox .tcb--cols--2 p { text-align: center!important; }}
+
+@media only screen and (max-width: 769px) {
+	.directory-coursebox .tcb--cols--2 .directory-course-label p { margin-top: -20px;}}
+
+@media only screen and (max-width: 769px) {
+	.directory-coursebox .tcb--cols--2 .thrv-button a { margin-top: -20px;}}
+
+.directory-coursebox .tcb-button-texts {padding: 0px 20px;}
+
+@media only screen and (max-width: 767px){.thrv_wrapper.thrv-columns.directory-course-columns {margin-top: -40px;}}
+
+.path-box-button-text p {font-family: industry!important; font-weight: 700;}
+
+.course-box-course-info p {font-family: industry!important; font-weight: 700; font-size: 14px}
+
+.course-box h2 {font-size: 22px;}
+
+.course-box p {font-size: 13px;}
+
+.course-box a {text-decoration: none!important;}
+
+.scn.aut {
+    box-shadow: none;
+    background: #ffffff;
+    border-radius: 5px;
+    border: 2px solid #d4d4d4;
+    margin-bottom: 10px;
+}
+
+.scn h5 {font-family: industry, sans-serif; font-weight: 900;}
+
+.blog .awr h2.entry-title, .archive .awr h2.entry-title, .search .awr h2.entry-title  { font-size: 24px!important; font-weight: 900; line-height: 1.4em!important; margin-top: 10px; margin-bottom: 10px; font-family: ingra, serif!important; text-align: left;}
+.cnt article h2.entry-title a {color: #232a3d!important;}
+
+.cnt article h2.entry-title a:hover {color: #4d7fdf!important;}
+
+.blog .awr .category a, .archive .awr .category a, .search .awr .category a {font-family: ingra, sans-serif; text-decoration: none; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; font-weight: 300; line-height: 2em; }
+
+.blog .awr p, .archive .awr p, .search .awr p {font-family: merriweather, serif!important; margin-bottom: 0px!important; line-height: 1.9em; color: #232a3d!important;}
+
+.blog footer, .archive footer, .search footer  {margin: 5px!important;}
+
+
+
+
+.cnt .rltp p, .cnt .rltp h5, .cnt .rltpi a p, .cnt .rltpi h5  {font-family: ingra, sans-serif;  font-weight: 500; font-size: 15px; color: #232a3d; }
+
+
+
+.cnt .rltp p:before, .cnt .rltpi p:before {display: none;}
+
+.cnt .rltp h5, .cnt .rltpi h5 {margin: 5px 0px;}
+
+.cnt article ul {
+    list-style: disc;
+}
+
+
+
+.cnt section footer {}
+
+
+
+footer .ftw {background-color: #232a3d; padding: 40px 0px 0px 0px;}
+
+footer .ftw ul li a, footer .ftw .textwidget  {color: #ffffff;  font-size: 12px;}
+
+footer .copy {display: none;}
+
+.tvo-set12-template.tvo-testimonials-display-single .tvo-testimonial-quote {font-family: industry!important; font-size: 168px!important; margin-left: -10px;}
+
+.tvo-testimonial-image-cover .tvo-testimonial-real-border {display: block!important;}
+
+.tvo-testimonials-display.tvo-set12-template .tvo-testimonial-display-item h4, .tvo-testimonials-display.tvo-set12-template .tvo-testimonial-display-item p {font-family: ingra!important;  font-size: 15px!important; font-weight: 100!important; font-style: normal!important; color: #0C0A48!important;}
+
+
+
+.tvo-testimonial-info svg {display: none; }
+
+.tvo-testimonial-info .tvo-testimonial-name, .tvo-testimonial-info .tvo-testimonial-role {
+font-family: ingra!important;  font-size: 15px!important;
+color: #232a3d!important;}
+
+.tvo-testimonial-info .tvo-testimonial-name {font-weight: 700!important;;}
+
+
+
+.tvo-set12-template.tvo-testimonials-display-single .tvo-testimonial-quote:before, .tvo-set12-template.tvo-testimonials-display-single .tvo-testimonial-quote:after {display: none;}
+
+@media only screen and (min-width: 768px) {
+	.why-p, .mission-two-columns {column-count: 2; column-gap: 40px; }}
+
+.why-p p, .why-p ul li {font-size: 15px; margin-bottom: 20px!important; font-weight: 300;}
+
+.gmt-edd-slack-alert-success {border: 1px solid #000000; padding: 20px; text-align: center;}
+
+.sub-picker .tve_scT .tve_scTC {background: transparent; border: 0px;}
+
+.sub-picker .tve_scT>ul li {border: 1px solid #cccccc; text-transform: capitalize; }
+
+.sub-picker .tve_scT>ul li.annual {border-radius: 5px;}
+
+.sub-picker .tve_scT>ul li.monthly {border-radius: 5px; margin-bottom: 5px!important;}
+
+.thrv_wrapper.thrv-tabbed-content div.tve_scT>ul li span {width: 70px; font-size: 12px; font-family: industry; letter-spacing: 1px; line-height: 1em; }
+
+.sub-picker ul.mon-ann {display: block; margin: auto auto!important; width: 200px; }
+
+.sub-picker ul li.annual, .sub-picker ul li.monthly {padding: 10px!important; }
+
+.thrv-pricing-table {margin-top: -40px}
+
+.thrv_wrapper.thrv-tabbed-content div.tve_scT>ul li:hover {color: #232a3d; }
+
+.main-testimonial .tvo-testimonials-display.tvo-set12-template .tvo-testimonial-display-item p {font-size: 20px!important;}
+
+.mission-ppp-horizontal {display: none;}
+
+.mission-outline p {font-size: 14px;  line-height: 1.6em; padding-top: 8px;}
+
+.mission-outline br {line-height: 3em}
+
+.mission-outline {column-count: 1; column-gap: 10px; }
+
+.ctb {border: none;}
+.ctb h5  {display: none;}
+
+#comments {border: none;}
+
+.cmc {margin: 0 auto 20px auto; }
+.cmc .awe {display: none;}
+.cmc, .cmc p {font-family: ingra!important; color: #232a3d!important; }
+
+.cmb {margin: 0px;}
+
+.lrp p {font-family: industry, sans-serif!important; font-size: 18px!important; color: #232a3d!important;}
+
+textarea:not(.editor-post-title__input) {background: #ffffff; box-shadow: none; border: 2px solid #e9e9e9; }
+
+.lrp input[type="submit"] {
+    background: #61D199;
+    border-radius: 5px;
+	border: 0px;
+    color: #ffffff;
+    font-size: 1em;
+    font-family: industry, sans-serif;
+    margin: 20px 0;
+    padding: 12px 36px 12px 36px;
+    text-align: center;
+}
+
+.lrp input[type="text"] {
+    box-sizing: border;
+    border-radius: 5px;
+	box-shadow: none;
+    background: #ffffff;
+    border: 1px solid #e9e9e9;
+    color: #232a3d;
+    float: left;
+    font-size: 1em;
+    font-weight: 700;
+    font-family: ingra, sans-serif;
+    height: 32px;
+    margin: 0% 4.2% 3% 0%;
+    padding: 0% 0% 0% 2%;
+    width: 30.3%;
+}
+
+.lrp textarea::-webkit-input-placeholder {
+   color:transparent;
+}
+
+.lrp textarea:-moz-placeholder { /* Firefox 18- */
+   color:transparent; 
+}
+
+.lrp textarea::-moz-placeholder {  /* Firefox 19+ */
+   color:transparent; 
+}
+
+.lrp textarea:-ms-input-placeholder {  
+   color:transparent;
+}
+
+.footer-links a {color: #ffffff; line-height: 2}
+
+
+#tve_tcb2_set-021 {display: none;}
+
+a.tcb-button-link {background-color: #61D199; text-transform: uppercase; padding: 12px 30px; border-radius: 5px!important;}
+
+a.tcb-button-link:hover {background-color: rgb(97, 209, 153) !important; }
+
+
+.industry p {font-family: industry, sans-serif!important; }
+
+body.home {background-color: #232a3d;}
+
+.course-header p strong, .mission-header p strong, .mission-header .tcb-plain-text {font-size: 12px!important; letter-spacing: 3px;
+    color: rgb(77, 127, 223) !important;}
+
+.mission-header .tcb-plain-text {margin-bottom: 10px;}
+
+.directory-coursebox h3 {margin-top: 5px}
+
+.post-template-default .sidebar-blog-title h2 {font-family: industry!important; margin-top: -10px; margin-bottom: 0px;}
+
+.post-template-default .sidebar-blog-subtitle { margin-bottom: 20px;}
+
+#signup_form .error {
+    display: block;
+    line-height: .7em;
+    padding: 0;
+    color: #a94342;
+    font-family: ingra,sans-serif;
+    font-weight: 400;
+	border: 1px solid #990000;
+}
+
+
+.cnt .sAs .ttl {font-family: industry; color: #31394a; border: 0px; margin-bottom: 0px; font-size: 22px; margin-left: 5px;}
+
+section[id*='nav_menu-'] .scn ul li, .scn ul[id*='menu'] li {border-bottom: 0px; padding: 10px 0px; list-style-type: disc; margin-left: 40px; color: #31394a; font-family: ingra; letter-spacing: 1px;}
+
+.scn ul li a {font-size: 13px;}
+
+.scn>ul li:after, section[id*='nav_menu-'] .scn ul li:after, .scn ul[id*='menu'] li:after {content: none; }
+
+
+.cnt .sAs>section {margin-bottom: 20px!important;}
+
+#nav_menu-3 {margin-top: -20px;}
+
+.cnt .sAs.right {border: 0px;}
+
+.tve_flt .tve_contents_table .tve_ct_title {font-family: industry; text-align: left; display: block; margin: 0px ; padding: 0px 0px 10px; font-weight: bold; font-size: 24px;}
+
+blockquote {
+	padding: 20px;
+	color: #428bca;
+	border-left: 5px solid #428bca;
+}
+
+.sidebar-blog-title h2 {margin: 0px; padding: 10px}
+		</style>
+					<style type="text/css">.backpack.dropzone {
+  font-family: 'SF UI Display', 'Segoe UI';
+  font-size: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 150px;
+  font-weight: lighter;
+  color: white;
+  will-change: right;
+  z-index: 2147483647;
+  bottom: 20%;
+  background: #333;
+  position: fixed;
+  user-select: none;
+  transition: left .5s, right .5s;
+  right: 0px; }
+  .backpack.dropzone .animation {
+    height: 80px;
+    width: 250px;
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center; }
+  .backpack.dropzone .title::before {
+    content: 'Save to'; }
+  .backpack.dropzone.closed {
+    right: -250px; }
+  .backpack.dropzone.hover .animation {
+    animation: sxt-play-anim-hover 0.91s steps(21);
+    animation-fill-mode: forwards;
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/hoverstate.png") left center; }
+
+@keyframes sxt-play-anim-hover {
+  from {
+    background-position: 0px; }
+  to {
+    background-position: -5250px; } }
+  .backpack.dropzone.saving .title::before {
+    content: 'Saving to'; }
+  .backpack.dropzone.saving .animation {
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saving_loop.png") left center;
+    animation: sxt-play-anim-saving steps(59) 2.46s infinite; }
+
+@keyframes sxt-play-anim-saving {
+  100% {
+    background-position: -14750px; } }
+  .backpack.dropzone.saved .title::before {
+    content: 'Saved to'; }
+  .backpack.dropzone.saved .animation {
+    background: url("chrome-extension://lifbcibllhkdhoafpjfnlhfpfgnpldfl/assets/backpack/dropzone/saved.png") left center;
+    animation: sxt-play-anim-saved steps(20) 0.83s forwards; }
+
+@keyframes sxt-play-anim-saved {
+  100% {
+    background-position: -5000px; } }
+</style><script async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/hotjar-1054645.js"></script><script async="" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/modules-v55.js"></script><style type="text/css">#o397c90d6ad55b1add78a8c1c8c3523351ffdb2f7-container{margin:0;padding:0;overflow:hidden;position:absolute;border:none;background-color:transparent}body.logged-in.admin-bar #o397c90d6ad55b1add78a8c1c8c3523351ffdb2f7-container.HB-Bar.hb-bar-top,body.logged-in.admin-bar #o397c90d6ad55b1add78a8c1c8c3523351ffdb2f7-container.HB-Slider.hb-top-left,body.logged-in.admin-bar #o397c90d6ad55b1add78a8c1c8c3523351ffdb2f7-container.HB-Slider.hb-top-right,body.logged-in.admin-bar #pull-down.hb-bar-top,body.logged-in.admin-bar #pull-down.hb-top-left,body.logged-in.admin-bar #pull-down.hb-top-right{z-index:99998!important;top:32px!important}.hellobar#pull-down.hb-animated{animation-duration:1s;-o-animation-duration:1s;-ms-animation-duration:1s;-moz-animation-duration:1s;-webkit-animation-duration:1s;animation-fill-mode:forwards;-o-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards}.hellobar#pull-down{top:-1px;right:10px;padding:3px;z-index:10000002;overflow:hidden;position:absolute;border-radius:0 0 5px 5px;transform:translateY(-40px);-o-transform:translateY(-40px);-ms-transform:translateY(-40px);-moz-transform:translateY(-40px);-webkit-transform:translateY(-40px)}.hellobar#pull-down .hellobar-arrow{cursor:pointer;display:flex;height:11px;opacity:.3;width:11px;filter:flipv;transform:scaleY(-1);-o-transform:scaleY(-1);-ms-transform:scaleY(-1);-moz-transform:scaleY(-1);-webkit-transform:scaleY(-1)}.hellobar#pull-down .hellobar-arrow:hover{opacity:.6}.hellobar#pull-down .hellobar-arrow svg{fill:#fff}.hellobar#pull-down.inverted .hellobar-arrow svg{fill:#3c3e3f}#o397c90d6ad55b1add78a8c1c8c3523351ffdb2f7-container.hb-animated{animation-duration:.25s;-o-animation-duration:.25s;-ms-animation-duration:.25s;-moz-animation-duration:.25s;-webkit-animation-duration:.25s;animation-fill-mode:forwards;-o-animation-fill-mode:forwards;-ms-animation-fill-mode:forwards;-moz-animation-fill-mode:forwards;-webkit-animation-fill-mode:forwards}@keyframes hb-bounceInDown{0%,60%,75%,90%,to{transition-timing-function:cubic-bezier(.215,.61,.355,1);-o-transition-timing-function:cubic-bezier(.215,.61,.355,1);-ms-transition-timing-function:cubic-bezier(.215,.61,.355,1);-moz-transition-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1)}0%{transform:translate3d(0,-3000px,0);-o-transform:translate3d(0,-3000px,0);-ms-transform:translate3d(0,-3000px,0);-moz-transform:translate3d(0,-3000px,0);-webkit-transform:translate3d(0,-3000px,0)}60%{transform:translateZ(0);-o-transform:translateZ(0);-ms-transform:translateZ(0);-moz-transform:translateZ(0);-webkit-transform:translateZ(0)}75%{transform:translate3d(0,-40px,0);-o-transform:translate3d(0,-40px,0);-ms-transform:translate3d(0,-40px,0);-moz-transform:translate3d(0,-40px,0);-webkit-transform:translate3d(0,-40px,0)}90%{transform:translateZ(0);-o-transform:translateZ(0);-ms-transform:translateZ(0);-moz-transform:translateZ(0);-webkit-transform:translateZ(0)}to{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}}@-moz-keyframes hb-bounceInDown{0%,60%,75%,90%,to{-moz-transition-timing-function:cubic-bezier(.215,.61,.355,1)}0%{-moz-transform:translate3d(0,-3000px,0)}60%{-moz-transform:translateZ(0)}75%{-moz-transform:translate3d(0,-40px,0)}90%{-moz-transform:translateZ(0)}to{-moz-transform:none}}@-webkit-keyframes hb-bounceInDown{0%,60%,75%,90%,to{-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1)}0%{-webkit-transform:translate3d(0,-3000px,0)}60%{-webkit-transform:translateZ(0)}75%{-webkit-transform:translate3d(0,-40px,0)}90%{-webkit-transform:translateZ(0)}to{-webkit-transform:none}}@keyframes hb-bounceInUp{0%,60%,75%,90%,to{transition-timing-function:cubic-bezier(.215,.61,.355,1);-o-transition-timing-function:cubic-bezier(.215,.61,.355,1);-ms-transition-timing-function:cubic-bezier(.215,.61,.355,1);-moz-transition-timing-function:cubic-bezier(.215,.61,.355,1);-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1)}0%{transform:translate3d(0,3000px,0);-o-transform:translate3d(0,3000px,0);-ms-transform:translate3d(0,3000px,0);-moz-transform:translate3d(0,3000px,0);-webkit-transform:translate3d(0,3000px,0)}60%{transform:translateZ(0);-o-transform:translateZ(0);-ms-transform:translateZ(0);-moz-transform:translateZ(0);-webkit-transform:translateZ(0)}75%{transform:translate3d(0,40px,0);-o-transform:translate3d(0,40px,0);-ms-transform:translate3d(0,40px,0);-moz-transform:translate3d(0,40px,0);-webkit-transform:translate3d(0,40px,0)}90%{transform:translateZ(0);-o-transform:translateZ(0);-ms-transform:translateZ(0);-moz-transform:translateZ(0);-webkit-transform:translateZ(0)}to{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}}@-moz-keyframes hb-bounceInUp{0%,60%,75%,90%,to{-moz-transition-timing-function:cubic-bezier(.215,.61,.355,1)}0%{-moz-transform:translate3d(0,3000px,0)}60%{-moz-transform:translateZ(0)}75%{-moz-transform:translate3d(0,40px,0)}90%{-moz-transform:translateZ(0)}to{-moz-transform:none}}@-webkit-keyframes hb-bounceInUp{0%,60%,75%,90%,to{-webkit-transition-timing-function:cubic-bezier(.215,.61,.355,1)}0%{-webkit-transform:translate3d(0,3000px,0)}60%{-webkit-transform:translateZ(0)}75%{-webkit-transform:translate3d(0,40px,0)}90%{-webkit-transform:translateZ(0)}to{-webkit-transform:none}}@keyframes hb-bounceOutUp{0%,to{transition-timing-function:ease-in;-o-transition-timing-function:ease-in;-ms-transition-timing-function:ease-in;-moz-transition-timing-function:ease-in;-webkit-transition-timing-function:ease-in}0%{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}to{transform:translate3d(0,-500px,0);-o-transform:translate3d(0,-500px,0);-ms-transform:translate3d(0,-500px,0);-moz-transform:translate3d(0,-500px,0);-webkit-transform:translate3d(0,-500px,0)}}@-moz-keyframes hb-bounceOutUp{0%,to{-moz-transition-timing-function:ease-in}0%{-moz-transform:none}to{-moz-transform:translate3d(0,-500px,0)}}@-webkit-keyframes hb-bounceOutUp{0%,to{-webkit-transition-timing-function:ease-in}0%{-webkit-transform:none}to{-webkit-transform:translate3d(0,-500px,0)}}@keyframes hb-bounceOutDown{0%,to{transition-timing-function:ease-in;-o-transition-timing-function:ease-in;-ms-transition-timing-function:ease-in;-moz-transition-timing-function:ease-in;-webkit-transition-timing-function:ease-in}0%{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}to{transform:translate3d(0,500px,0);-o-transform:translate3d(0,500px,0);-ms-transform:translate3d(0,500px,0);-moz-transform:translate3d(0,500px,0);-webkit-transform:translate3d(0,500px,0)}}@-moz-keyframes hb-bounceOutDown{0%,to{-moz-transition-timing-function:ease-in}0%{-moz-transform:none}to{-moz-transform:translate3d(0,500px,0)}}@-webkit-keyframes hb-bounceOutDown{0%,to{-webkit-transition-timing-function:ease-in}0%{-webkit-transform:none}to{-webkit-transform:translate3d(0,500px,0)}}@keyframes hb-bounceInLeft{0%,75%,to{transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-o-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-ms-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{transform:translate3d(200%,0,0);-o-transform:translate3d(200%,0,0);-ms-transform:translate3d(200%,0,0);-moz-transform:translate3d(200%,0,0);-webkit-transform:translate3d(200%,0,0)}75%{transform:translate3d(-10%,0,0);-o-transform:translate3d(-10%,0,0);-ms-transform:translate3d(-10%,0,0);-moz-transform:translate3d(-10%,0,0);-webkit-transform:translate3d(-10%,0,0)}to{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}}@-moz-keyframes hb-bounceInLeft{0%,75%,to{-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-moz-transform:translate3d(200%,0,0)}75%{-moz-transform:translate3d(-10%,0,0)}to{-moz-transform:none}}@-webkit-keyframes hb-bounceInLeft{0%,75%,to{-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-webkit-transform:translate3d(200%,0,0)}75%{-webkit-transform:translate3d(-10%,0,0)}to{-webkit-transform:none}}@keyframes hb-bounceOutRight{0%,25%,to{transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-o-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-ms-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}25%{transform:translate3d(-10%,0,0);-o-transform:translate3d(-10%,0,0);-ms-transform:translate3d(-10%,0,0);-moz-transform:translate3d(-10%,0,0);-webkit-transform:translate3d(-10%,0,0)}to{transform:translate3d(200%,0,0);-o-transform:translate3d(200%,0,0);-ms-transform:translate3d(200%,0,0);-moz-transform:translate3d(200%,0,0);-webkit-transform:translate3d(200%,0,0)}}@-moz-keyframes hb-bounceOutRight{0%,25%,to{-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-moz-transform:none}25%{-moz-transform:translate3d(-10%,0,0)}to{-moz-transform:translate3d(200%,0,0)}}@-webkit-keyframes hb-bounceOutRight{0%,25%,to{-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-webkit-transform:none}25%{-webkit-transform:translate3d(-10%,0,0)}to{-webkit-transform:translate3d(200%,0,0)}}@keyframes hb-bounceInRight{0%,75%,to{transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-o-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-ms-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{transform:translate3d(-200%,0,0);-o-transform:translate3d(-200%,0,0);-ms-transform:translate3d(-200%,0,0);-moz-transform:translate3d(-200%,0,0);-webkit-transform:translate3d(-200%,0,0)}75%{transform:translate3d(10%,0,0);-o-transform:translate3d(10%,0,0);-ms-transform:translate3d(10%,0,0);-moz-transform:translate3d(10%,0,0);-webkit-transform:translate3d(10%,0,0)}to{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}}@-moz-keyframes hb-bounceInRight{0%,75%,to{-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-moz-transform:translate3d(-200%,0,0)}75%{-moz-transform:translate3d(10%,0,0)}to{-moz-transform:none}}@-webkit-keyframes hb-bounceInRight{0%,75%,to{-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-webkit-transform:translate3d(-200%,0,0)}75%{-webkit-transform:translate3d(10%,0,0)}to{-webkit-transform:none}}@keyframes hb-bounceOutLeft{0%,25%,to{transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-o-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-ms-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255);-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{transform:none;-o-transform:none;-ms-transform:none;-moz-transform:none;-webkit-transform:none}25%{transform:translate3d(10%,0,0);-o-transform:translate3d(10%,0,0);-ms-transform:translate3d(10%,0,0);-moz-transform:translate3d(10%,0,0);-webkit-transform:translate3d(10%,0,0)}to{transform:translate3d(-200%,0,0);-o-transform:translate3d(-200%,0,0);-ms-transform:translate3d(-200%,0,0);-moz-transform:translate3d(-200%,0,0);-webkit-transform:translate3d(-200%,0,0)}}@-moz-keyframes hb-bounceOutLeft{0%,25%,to{-moz-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-moz-transform:none}25%{-moz-transform:translate3d(10%,0,0)}to{-moz-transform:translate3d(-200%,0,0)}}@-webkit-keyframes hb-bounceOutLeft{0%,25%,to{-webkit-transition-timing-function:cubic-bezier(.65,-.25,.325,1.255)}0%{-webkit-transform:none}25%{-webkit-transform:translate3d(10%,0,0)}to{-webkit-transform:translate3d(-200%,0,0)}}@keyframes hb-fadeIn{0%,to{transition-timing-function:ease-in;-o-transition-timing-function:ease-in;-ms-transition-timing-function:ease-in;-moz-transition-timing-function:ease-in;-webkit-transition-timing-function:ease-in}0%{opacity:0}to{opacity:1}}@-moz-keyframes hb-fadeIn{0%,to{-moz-transition-timing-function:ease-in}0%{opacity:0}to{opacity:1}}@-webkit-keyframes hb-fadeIn{0%,to{-webkit-transition-timing-function:ease-in}0%{opacity:0}to{opacity:1}}@keyframes hb-fadeOut{0%,to{transition-timing-function:ease-in;-o-transition-timing-function:ease-in;-ms-transition-timing-function:ease-in;-moz-transition-timing-function:ease-in;-webkit-transition-timing-function:ease-in}0%{opacity:1}to{opacity:0}}@-moz-keyframes hb-fadeOut{0%,to{-moz-transition-timing-function:ease-in}0%{opacity:1}to{opacity:0}}@-webkit-keyframes hb-fadeOut{0%,to{-webkit-transition-timing-function:ease-in}0%{opacity:1}to{opacity:0}}@keyframes hb-fadeInDown{0%,to{transition-timing-function:ease-in;-o-transition-timing-function:ease-in;-ms-transition-timing-function:ease-in;-moz-transition-timing-function:ease-in;-webkit-transition-timing-function:ease-in}0%{opacity:0;height:110%;margin-top:-5%}to{opacity:1;height:100%;margin-top:0}}@-moz-keyframes hb-fadeInDown{0%,to{-moz-transition-timing-function:ease-in}0%{opacity:0;height:110%;margin-top:-5%}to{opacity:1;height:100%;margin-top:0}}@-webkit-keyframes hb-fadeInDown{0%,to{-webkit-transition-timing-function:ease-in}0%{opacity:0;height:110%;margin-top:-5%}to{opacity:1;height:100%;margin-top:0}}@keyframes hb-fadeOutUp{0%,to{transition-timing-function:ease-in;-o-transition-timing-function:ease-in;-ms-transition-timing-function:ease-in;-moz-transition-timing-function:ease-in;-webkit-transition-timing-function:ease-in}0%{opacity:1;height:100%;margin-top:0}to{opacity:0;height:110%;margin-top:-5%}}@-moz-keyframes hb-fadeOutUp{0%,to{-moz-transition-timing-function:ease-in}0%{opacity:1;height:100%;margin-top:0}to{opacity:0;height:110%;margin-top:-5%}}@-webkit-keyframes hb-fadeOutUp{0%,to{-webkit-transition-timing-function:ease-in}0%{opacity:1;height:100%;margin-top:0}to{opacity:0;height:110%;margin-top:-5%}}.hb-hidden{display:none}body .hb-cu-offer,html .hb-cu-offer{text-align:center!important;padding:2em!important}body .hb-cu-offer a,html .hb-cu-offer a{text-decoration:none!important;box-shadow:none!important}body .hb-cu-offer a:hover,html .hb-cu-offer a:hover{text-decoration:underline!important;box-shadow:none!important}.hb-cu-modal{display:block!important;width:90%!important;position:absolute!important;top:50%!important;left:50%!important;transform:translate(-50%,-50%)!important;font-family:Open Sans,Helvetica,Arial,sans-serif!important;padding:20px!important;text-align:center!important;font-size:13px!important;background-color:#fefefe!important;margin:0!important;border:1px solid #efefef!important;max-width:670px!important}.hb-cu-modal .progress{margin:10px auto 18px!important;width:95%!important}.hb-cu-modal .caption{color:#000!important;border-bottom:1px solid #ccc!important;font-size:10pt!important;padding:8px 0!important;width:85%!important;max-width:520px!important}.hb-cu-modal .caption,.hb-cu-modal .headline{font-family:Open Sans,Helvetica,Arial,sans-serif!important;margin:auto!important}.hb-cu-modal .headline{letter-spacing:0!important;color:#333!important;font-size:18pt!important;font-weight:700!important;padding:30px!important;max-width:500px!important}.hb-cu-modal .form{padding:0 30px!important}.hb-cu-modal input{display:block!important}.hb-cu-modal input,.hb-cu-modal input[type=checkbox]{padding:13px!important;width:100%!important;max-width:450px!important;margin:auto!important;margin-bottom:15px!important;font-size:1.2em!important;color:#201d1d!important;background:#fff!important;border:1pt solid #c9d7dd!important}.hb-cu-modal input[type=checkbox]{display:inline!important}.hb-cu-modal .hb-gdpr-checkboxes{padding:0 67px!important;margin-bottom:15px!important}.hb-cu-modal .hb-gdpr-checkboxes label{text-align:left;margin:0 0 10px;display:flex;align-items:flex-start}.hb-cu-modal .hb-gdpr-checkboxes span{flex:94%}.hb-cu-modal .hb-gdpr-checkboxes .hb-gdpr-checkbox{padding:0!important;width:auto!important;margin:2px 5px 0 0!important;font-size:1.2em!important;color:#201d1d!important;background:#fff!important;border:1pt solid #c9d7dd!important;display:inline!important}.hb-cu-modal .cta{padding:13px!important;width:100%!important;max-width:450px!important;margin:auto!important;margin-bottom:15px!important;font-size:1.2em!important;color:#201d1d!important;display:block!important;color:#fff!important;text-transform:uppercase!important;text-decoration:none!important;font-family:Open Sans,Helvetica,Arial,sans-serif!important;font-weight:700!important;cursor:pointer!important;padding:20px!important;font-size:18px!important;margin-top:5px!important;border:none!important;border-radius:0!important;-webkit-appearance:none!important}.hb-cu-modal .cta:focus{outline:none!important}.hb-cu-modal .spam-disclaimer{font-family:Open Sans,Helvetica,Arial,sans-serif!important;margin-top:8px!important;color:#9c9c9d!important;font-size:14px!important}.hb-cu-modal-container{display:none;position:fixed!important;z-index:9000000!important;padding:0!important;padding-top:100px!important;left:0!important;top:0!important;width:100%!important;height:100%!important;overflow:auto!important;background-color:#000!important;background-color:rgba(0,0,0,.4)!important;box-sizing:content-box!important}#hb-cu-close-button{margin-top:-35px!important;margin-right:-35px!important;float:right!important;width:auto!important;height:auto!important;background:#333!important;border:2px solid #fff!important;-webkit-border-radius:18px!important;-moz-border-radius:18px!important;border-radius:18px!important;box-shadow:none!important;box-sizing:border-box!important;letter-spacing:normal!important;word-spacing:0!important;text-size-adjust:100%!important;padding:7px!important;display:flex!important;justify-content:center!important;align-items:center!important}#hb-cu-close-button svg{fill:transparent!important;stroke:#fff!important;stroke-linecap:round!important;stroke-width:5px!important}</style></head>
+<body class="post-template-default single single-post postid-1955 single-format-standard custom-background locale-en-us">
+
+<div class="flex-cnt">
+	<div id="floating_menu">
+				<header class="hbc" style="background-image:none; background-color:#232a3d">
+						<div class="wrp side_logo clearfix has_phone" id="head_wrp">
+				<div class="h-i">
+																	<div id="logo" class="left">
+								<a class="lg" href="https://www.dataquest.io/">
+									<noscript><img src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png"
+									     alt="Dataquest"/></noscript><img class=" lazyloaded" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/dq-1.png" data-src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png" alt="Dataquest">
+								</a>
+							</div>
+																						<div class="hmn">
+							<div class="awe rmn right"></div>
+							<div class="clear"></div>
+						</div>
+						<div class="mhl" id="nav_right" style="">
+																													<!-- Cart Dropdown -->
+								<nav class="right" style=""><ul id="menu-primary" class="menu"><li id="menu-item-20226" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.dataquest.io/directory/">Courses</a></li>
+<li id="menu-item-20223" class="menu-item menu-item-type-taxonomy menu-item-object-category"><a href="https://www.dataquest.io/blog/topics/student-stories/">Student Stories</a></li>
+<li id="menu-item-20225" class="menu-item menu-item-type-post_type menu-item-object-page"><a href="https://www.dataquest.io/were-hiring/">We’re Hiring</a></li>
+<li id="menu-item-20220" class="menu-item menu-item-type-post_type menu-item-object-page current_page_parent"><a href="https://www.dataquest.io/blog/">Blog</a></li>
+<li id="menu-item-20221" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="http://app.dataquest.io/signup">Start Learning</a></li>
+<li id="menu-item-20222" class="menu-item menu-item-type-custom menu-item-object-custom"><a href="http://app.dataquest.io/">Log In</a></li>
+</ul></nav>														<div class="clear"></div>
+						</div>
+												<div class="clear"></div>
+														</div>
+			</div>
+		</header>
+			</div>
+	
+			
+
+
+
+			<div class="bspr"></div>
+<div class="wrp cnt">
+			<div class="bSeCont">
+				<section class="bSe left">
+
+																	
+<article>
+	<div class="awr">
+					<h1 class="entry-title">NumPy Cheat Sheet — Python for Data Science</h1>
+							<noscript><img src="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-numpy.jpg" alt=""
+			     title="data-science-cheat-sheet-python-numpy"
+			     class="fwI"/></noscript><img src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/data-science-cheat-sheet-python-numpy.jpg" data-src="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-numpy.jpg" alt="" title="data-science-cheat-sheet-python-numpy" class="fwI lazyloaded">
+		
+		<div class="kg-card-markdown">
+<p>NumPy is the library that gives Python its ability to work with data at speed.  Originally, launched in 1995 as ‘Numeric,’ NumPy is the foundation on which many important Python data science libraries are built, including Pandas, SciPy and scikit-learn.</p>
+<p>It’s common when first learning NumPy to have trouble remembering all the functions and methods that you need, and while at <a href="https://www.dataquest.io/">Dataquest</a> we advocate getting used to consulting the <a href="https://docs.scipy.org/doc/numpy/">NumPy documentation</a>, sometimes it’s nice to have a handy reference, so we’ve put together this cheat sheet to help you out!</p>
+<p>If you’re interested in learning NumPy, you can consult our <a href="https://www.dataquest.io/blog/numpy-tutorial-python">NumPy tutorial</a> blog post, or you can signup for free and start learning NumPy through our interactive <a href="https://www.dataquest.io/course/data-analysis-intermediate">Python data science course</a>.</p>
+<p><a href="https://s3.amazonaws.com/dq-blog-files/numpy-cheat-sheet.pdf">Download a Printable PDF of this Cheat Sheet</a></p>
+<h2 id="keyandimports">Key and Imports</h2>
+<p>In this cheat sheet, we use the following shorthand:</p>
+<p><code>arr</code> | A NumPy Array object</p>
+<p>You’ll also need to import numpy to get started:</p>
+<pre class=" language-bash"><code class=" language-bash"><span class="token function">import</span> numpy as np</code></pre>
+<h2 id="importingexporting">Importing/exporting</h2>
+<p><code>np.loadtxt('file.txt')</code> | From a text file<br>
+<code>np.genfromtxt('file.csv',delimiter=',')</code> | From a CSV file<br>
+<code>np.savetxt('file.txt',arr,delimiter=' ')</code> | Writes to a text file<br>
+<code>np.savetxt('file.csv',arr,delimiter=',')</code> | Writes to a CSV file</p>
+<h2 id="creatingarrays">Creating Arrays</h2>
+<p><code>np.array([1,2,3])</code> | One dimensional array<br>
+<code>np.array([(1,2,3),(4,5,6)])</code> | Two dimensional array<br>
+<code>np.zeros(3)</code> | 1D array of length <code>3</code> all values <code>0</code><br>
+<code>np.ones((3,4))</code> | <code>3</code>x<code>4</code> array with all values <code>1</code><br>
+<code>np.eye(5)</code> | <code>5</code>x<code>5</code> array of <code>0</code> with <code>1</code> on diagonal (Identity matrix)<br>
+<code>np.linspace(0,100,6)</code> | Array of <code>6</code> evenly divided values from <code>0</code> to <code>100</code><br>
+<code>np.arange(0,10,3)</code> | Array of values from <code>0</code> to less than <code>10</code> with step <code>3</code> (eg <code>[0,3,6,9]</code>)<br>
+<code>np.full((2,3),8)</code> | <code>2</code>x<code>3</code> array with all values <code>8</code><br>
+<code>np.random.rand(4,5)</code> | <code>4</code>x<code>5</code> array of random floats between <code>0</code>–<code>1</code><br>
+<code>np.random.rand(6,7)*100</code> | <code>6</code>x<code>7</code> array of random floats between <code>0</code>–<code>100</code><br>
+<code>np.random.randint(5,size=(2,3))</code> | <code>2</code>x<code>3</code> array with random ints between <code>0</code>–<code>4</code></p>
+<h2 id="inspectingproperties">Inspecting Properties</h2>
+<p><code>arr.size</code> | Returns number of elements in <code>arr</code><br>
+<code>arr.shape</code> | Returns dimensions of <code>arr</code> (rows,columns)<br>
+<code>arr.dtype</code> | Returns type of elements in <code>arr</code><br>
+<code>arr.astype(dtype)</code> | Convert <code>arr</code> elements to type <code>dtype</code><br>
+<code>arr.tolist()</code> | Convert <code>arr</code> to a Python list<br>
+<code>np.info(np.eye)</code> | View documentation for <code>np.eye</code></p>
+<h2 id="copyingsortingreshaping">Copying/sorting/reshaping</h2>
+<p><code>np.copy(arr)</code> | Copies <code>arr</code> to new memory<br>
+<code>arr.view(dtype)</code> | Creates view of <code>arr</code> elements with type <code>dtype</code><br>
+<code>arr.sort()</code> | Sorts <code>arr</code><br>
+<code>arr.sort(axis=0)</code> | Sorts specific axis of <code>arr</code><br>
+<code>two_d_arr.flatten()</code> | Flattens 2D array <code>two_d_arr</code> to 1D<br>
+<code>arr.T</code> | Transposes <code>arr</code> (rows become columns and vice versa)<br>
+<code>arr.reshape(3,4)</code> | Reshapes <code>arr</code> to <code>3</code> rows, <code>4</code> columns without changing data<br>
+<code>arr.resize((5,6))</code> | Changes <code>arr</code> shape to <code>5</code>x<code>6</code> and fills new values with <code>0</code></p>
+<h2 id="addingremovingelements">Adding/removing Elements</h2>
+<p><code>np.append(arr,values)</code> | Appends values to end of <code>arr</code><br>
+<code>np.insert(arr,2,values)</code> | Inserts values into <code>arr</code> before index <code>2</code><br>
+<code>np.delete(arr,3,axis=0)</code> | Deletes row on index <code>3</code> of <code>arr</code><br>
+<code>np.delete(arr,4,axis=1)</code> | Deletes column on index <code>4</code> of <code>arr</code></p>
+<h2 id="combiningsplitting">Combining/splitting</h2>
+<p><code>np.concatenate((arr1,arr2),axis=0)</code> | Adds <code>arr2</code> as rows to the end of <code>arr1</code><br>
+<code>np.concatenate((arr1,arr2),axis=1)</code> | Adds <code>arr2</code> as columns to end of <code>arr1</code><br>
+<code>np.split(arr,3)</code> | Splits <code>arr</code> into <code>3</code> sub-arrays<br>
+<code>np.hsplit(arr,5)</code> | Splits <code>arr</code> horizontally on the <code>5</code>th index</p>
+<h2 id="indexingslicingsubsetting">Indexing/slicing/subsetting</h2>
+<p><code>arr[5]</code> | Returns the element at index <code>5</code><br>
+<code>arr[2,5]</code> | Returns the 2D array element on index <code>[2][5]</code><br>
+<code>arr[1]=4</code> | Assigns array element on index <code>1</code> the value <code>4</code><br>
+<code>arr[1,3]=10</code> | Assigns array element on index <code>[1][3]</code> the value <code>10</code><br>
+<code>arr[0:3]</code> | Returns the elements at indices <code>0,1,2</code> (On a 2D array: returns rows <code>0,1,2</code>)<br>
+<code>arr[0:3,4]</code> | Returns the elements on rows <code>0,1,2</code> at column <code>4</code><br>
+<code>arr[:2]</code> | Returns the elements at indices <code>0,1</code> (On a 2D array: returns rows <code>0,1</code>)<br>
+<code>arr[:,1]</code> | Returns the elements at index <code>1</code> on all rows<br>
+<code>arr&lt;5</code> | Returns an array with boolean values<br>
+<code>(arr1&lt;3) &amp; (arr2&gt;5)</code> | Returns an array with boolean values<br>
+<code>~arr</code> | Inverts a boolean array<br>
+<code>arr[arr&lt;5]</code> | Returns array elements smaller than <code>5</code></p>
+<h2 id="scalarmath">Scalar Math</h2>
+<p><code>np.add(arr,1)</code> | Add <code>1</code> to each array element<br>
+<code>np.subtract(arr,2)</code> | Subtract <code>2</code> from each array element<br>
+<code>np.multiply(arr,3)</code> | Multiply each array element by <code>3</code><br>
+<code>np.divide(arr,4)</code> | Divide each array element by <code>4</code> (returns <code>np.nan</code> for division by zero)<br>
+<code>np.power(arr,5)</code> | Raise each array element to the <code>5</code>th power</p>
+<h2 id="vectormath">Vector Math</h2>
+<p><code>np.add(arr1,arr2)</code> | Elementwise add <code>arr2</code> to <code>arr1</code><br>
+<code>np.subtract(arr1,arr2)</code> | Elementwise subtract <code>arr2</code> from <code>arr1</code><br>
+<code>np.multiply(arr1,arr2)</code> | Elementwise multiply <code>arr1</code> by <code>arr2</code><br>
+<code>np.divide(arr1,arr2)</code> | Elementwise divide <code>arr1</code> by <code>arr2</code><br>
+<code>np.power(arr1,arr2)</code> | Elementwise raise <code>arr1</code> raised to the power of <code>arr2</code><br>
+<code>np.array_equal(arr1,arr2)</code> | Returns <code>True</code> if the arrays have the same elements and shape<br>
+<code>np.sqrt(arr)</code> | Square root of each element in the array<br>
+<code>np.sin(arr)</code> | Sine of each element in the array<br>
+<code>np.log(arr)</code> | Natural log of each element in the array<br>
+<code>np.abs(arr)</code> | Absolute value of each element in the array<br>
+<code>np.ceil(arr)</code> | Rounds up to the nearest int<br>
+<code>np.floor(arr)</code> | Rounds down to the nearest int<br>
+<code>np.round(arr)</code> | Rounds to the nearest int</p>
+<h2 id="statistics">Statistics</h2>
+<p><code>np.mean(arr,axis=0)</code> | Returns mean along specific axis<br>
+<code>arr.sum()</code> | Returns sum of <code>arr</code><br>
+<code>arr.min()</code> | Returns minimum value of <code>arr</code><br>
+<code>arr.max(axis=0)</code> | Returns maximum value of specific axis<br>
+<code>np.var(arr)</code> | Returns the variance of array<br>
+<code>np.std(arr,axis=1)</code> | Returns the standard deviation of specific axis<br>
+<code>arr.corrcoef()</code> | Returns correlation coefficient of array</p>
+<h2 id="downloadaprintableversionofthischeatsheet">Download a printable version of this cheat sheet</h2>
+<p>If you’d like to download a printable version of this cheat sheet you can do so below.</p>
+<p><a href="https://s3.amazonaws.com/dq-blog-files/numpy-cheat-sheet.pdf">Download a Printable PDF of this Cheat Sheet</a></p>
+</div>
+<span id="tho-end-content" style="display: block; visibility: hidden;"></span><div class="saboxplugin-wrap" itemtype="http://schema.org/Person" itemscope="" itemprop="author"><div class="saboxplugin-gravatar"><noscript><img src="https://secure.gravatar.com/avatar/488062fe3e2d6bbf1da752fa6d89c37f?s=100&#038;d=identicon&#038;r=g" width="100" height="100" alt="Avatar" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default" /></noscript><img src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/488062fe3e2d6bbf1da752fa6d89c37f.jpeg" data-src="https://secure.gravatar.com/avatar/488062fe3e2d6bbf1da752fa6d89c37f?s=100&amp;d=identicon&amp;r=g" width="100" height="100" alt="Avatar" class="avatar avatar-100 wp-user-avatar wp-user-avatar-100 photo avatar-default lazyloaded"></div><div class="saboxplugin-authorname"><a href="https://www.dataquest.io/blog/author/josh-devlin/" class="vcard author" rel="author" itemprop="url"><span class="fn" itemprop="name">Josh Devlin</span></a></div><div class="saboxplugin-desc"><div itemprop="description"><p>Data Scientist at Dataquest.io. Loves Data and Aussie Rules Football. Australian living in Texas.</p>
+</div></div><div class="clearfix"></div></div>
+		<div class="clear"></div>
+				<div class="clear"></div>
+							<footer>
+				<ul class="meta left">
+					<li>
+																											in																<span>
+                                        <a href="https://www.dataquest.io/blog/topics/cheat-sheets/">
+	                                        Cheat Sheets                                        </a>
+									                                    </span>
+																				
+																				by <a href="https://www.dataquest.io/blog/author/josh-devlin/">Josh Devlin</a>
+											</li>
+																		<li class="sep">|</li>
+												<li>
+															April 13, 2017													</li>
+														</ul>
+								<div class="clear"></div>
+			</footer>
+					</div>
+
+</article>
+<div class="rltpi clearfix">
+	<div class="awr">
+		<h5>Related Posts</h5>
+					<a href="https://www.dataquest.io/blog/regex-cheatsheet/" class="rlt left">
+				<div class="rlti lazyloaded" data-bg="https://www.dataquest.io/wp-content/uploads/2018/04/regex-cheat-sheet-data-science-pdf-510x162.jpg" style="background-image: url(&quot;https://www.dataquest.io/wp-content/uploads/2018/04/regex-cheat-sheet-data-science-pdf-510x162.jpg&quot;);"></div>
+				<p>Regex Cheat Sheet: A Quick Guide to Regular Expressions in Python</p>
+			</a>
+					<a href="https://www.dataquest.io/blog/data-science-python-cheat-sheet/" class="rlt left">
+				<div class="rlti lazyloaded" data-bg="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-intermediate.jpg" style="background-image: url(&quot;https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-intermediate.jpg&quot;);"></div>
+				<p>Python Cheat Sheet for Data Science: Intermediate</p>
+			</a>
+					<a href="https://www.dataquest.io/blog/python-cheat-sheet/" class="rlt left">
+				<div class="rlti lazyloaded" data-bg="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-basics.jpg" style="background-image: url(&quot;https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-basics.jpg&quot;);"></div>
+				<p>Python Cheat Sheet for Data Science: Basics</p>
+			</a>
+					<a href="https://www.dataquest.io/blog/pandas-cheat-sheet/" class="rlt left">
+				<div class="rlti lazyloaded" data-bg="https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-pandas.jpg" style="background-image: url(&quot;https://www.dataquest.io/wp-content/uploads/2019/01/data-science-cheat-sheet-python-pandas.jpg&quot;);"></div>
+				<p>Pandas Cheat Sheet — Python for Data Science</p>
+			</a>
+					</div>
+</div><div class="spr"></div>																					
+	<script type="text/javascript">
+		_thriveCurrentPost = 1955;
+	</script>
+	<article id="comments">
+		<div class="awr">
+			
+			
+			<div id="thrive_container_list_comments">
+							</div>
+
+			
+					</div>
+	</article>
+	<div id="comment-bottom"></div>
+
+																			</section>
+			</div>
+			
+	<div class="sAsCont">
+		<aside class="sAs right q2w3-fixed-widget-container" style="height: 1023px;">
+							<section id="custom_html-2" style=""><div class="widget_text scn"><div class="textwidget custom-html-widget"><div class="tve-leads-shortcode tve-tl-anim tl-anim-instant tve-leads-track-shortcode_11317 tve-leads-triggered"><div class="tl-style" id="tve_tcb2_blank" data-state="44" data-form-state=""><style type="text/css" class="tve_custom_style">@media (min-width: 300px){[data-css="tve-u-05ddc35ecb2e2a"] { background-color: rgb(255, 255, 255) !important; border: none !important; margin-top: 0px !important; margin-bottom: 0px !important; padding: 0px !important; }[data-css="tve-u-25ddc35ecb2e2e"] { border-radius: 5px; overflow: hidden; background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255)) !important; background-size: auto !important; background-position: 50% 50% !important; background-attachment: scroll !important; background-repeat: no-repeat !important; border: 2px solid var(--tcb-color-9)  !important; }[data-css="tve-u-35ddc35ecb2e2f"] { min-height: 350px; }[data-css="tve-u-15ddc35ecb2e2d"] { max-width: 350px; float: none; z-index: 3; position: relative; min-width: 341px; width: 341px; margin-left: auto !important; margin-right: auto !important; padding-left: 3px !important; padding-right: 3px !important; margin-top: 10px !important; }:not(#tve) [data-css="tve-u-55ddc35ecb2e31"] { color: var(--tcb-color-2)  !important; font-size: 28px !important; }[data-css="tve-u-65ddc35ecb2e32"] { margin-top: -20px !important; margin-bottom: 0px !important; }[data-css="tve-u-45ddc35ecb2e30"] { margin-top: 10px !important; }[data-css="tve-u-75ddc35ecb2e33"] { padding-left: 30px !important; padding-right: 30px !important; margin-top: -10px !important; margin-bottom: 20px !important; }:not(#tve) [data-css="tve-u-85ddc35ecb2e35"] { font-size: 12px !important; }[data-css="tve-u-85ddc35ecb2e35"] { line-height: 1.5em !important; }}@media (max-width: 767px){[data-css="tve-u-15ddc35ecb2e2d"] { float: none; margin-left: auto !important; margin-right: auto !important; }}</style><style type="text/css" class="tve_user_custom_style">.tve-leads-conversion-object .thrv_heading h1,.tve-leads-conversion-object .thrv_heading h2,.tve-leads-conversion-object .thrv_heading h3{margin:0;padding:0}.tve-leads-conversion-object .thrv_text_element p,.tve-leads-conversion-object .thrv_text_element h1,.tve-leads-conversion-object .thrv_text_element h2,.tve-leads-conversion-object .thrv_text_element h3{margin:0}</style><style type="text/css" class="tve_global_style"></style><div class="tve-leads-conversion-object" data-tl-type="shortcode_11317"><div class="tve_flt"><div id="tve_editor" class="tve_shortcode_editor"><div class="thrv-leads-form-box tve_no_drag tve_no_icons thrv_wrapper tve_editor_main_content thrv-leads-in-content tve_empty_dropzone" data-css="tve-u-05ddc35ecb2e2a"><div class="thrv_wrapper thrv_contentbox_shortcode thrv-content-box" data-css="tve-u-15ddc35ecb2e2d"><div class="tve-content-box-background" data-css="tve-u-25ddc35ecb2e2e"></div><div class="tve-cb" data-css="tve-u-35ddc35ecb2e2f"><div class="thrv_wrapper thrv_text_element sidebar-blog-title" data-css="tve-u-45ddc35ecb2e30" data-tag="h2"><h2 class="" data-css="tve-u-55ddc35ecb2e31" style="text-align: center;">START LEARNING</h2></div><div class="thrv_wrapper thrv_custom_html_shortcode sidebar-blog-form" data-css="tve-u-65ddc35ecb2e32"><iframe src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/signup.html" style="padding: 0px; margin: 0px; width: 100%; min-height: 335px;" data-hj-allow-iframe="">	</iframe><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div><div class="tve_iframe_cover"></div></div><div class="thrv_wrapper thrv_text_element tve-froala fr-box fr-basic" data-css="tve-u-75ddc35ecb2e33"><p data-css="tve-u-85ddc35ecb2e35" style="text-align: center;">By creating an account you agree to accept our <a href="https://www.dataquest.io/terms/" class="tve-froala" style="outline: none; display: inline-block;">terms of use</a>&nbsp;and&nbsp;<a href="https://www.dataquest.io/privacy/" class="tve-froala" style="outline: none; display: inline-block;">privacy policy</a>.</p></div></div></div></div></div></div></div></div></div></div></div></section><section id="search-3" style=""><div class="scn"><form action="https://www.dataquest.io/" method="get" class="srh">
+	<div>
+		<input type="text" placeholder="Search" class="search-field" name="s">
+		<button type="submit" class="search-button sBn"></button>
+		<div class="clear"></div>
+	</div>
+</form>
+</div></section><section id="nav_menu-3" style=""><div class="scn"><p class="ttl">Browse the blog:</p><div class="menu-left-container"><ul id="menu-left" class="menu"><li id="menu-item-14042" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-14042"><a href="https://www.dataquest.io/blog/data-science-career-guide/">Job Application Guide</a></li>
+<li id="menu-item-5973" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5973"><a href="https://www.dataquest.io/blog/topics/data-science-tutorials/">Tutorials</a></li>
+<li id="menu-item-5978" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5978"><a href="https://www.dataquest.io/blog/topics/student-stories/">Student Stories</a></li>
+<li id="menu-item-5974" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5974"><a href="https://www.dataquest.io/blog/topics/learning-and-motivation/">Learning and Motivation</a></li>
+<li id="menu-item-5979" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5979"><a href="https://www.dataquest.io/blog/topics/building-a-data-science-portfolio/">How to Build a Portfolio</a></li>
+<li id="menu-item-5977" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-5977"><a href="https://www.dataquest.io/blog/topics/data-science-projects/">Data Science Projects</a></li>
+</ul></div></div></section><section id="nav_menu-10" style=""><div class="scn"><p class="ttl">More resources:</p><div class="menu-more-resources-container"><ul id="menu-more-resources" class="menu"><li id="menu-item-19385" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19385"><a href="https://www.dataquest.io/data-science-courses/">Data Science Courses</a></li>
+<li id="menu-item-19386" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19386"><a href="https://www.dataquest.io/python-tutorials-for-data-science/">Python Tutorials</a></li>
+<li id="menu-item-19388" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-19388"><a href="https://www.dataquest.io/blog/data-analyst-data-scientist-data-engineer/">Data Analyst vs. Scientist vs. Engineer</a></li>
+</ul></div></div></section>			
+		</aside>
+	</div>
+
+		<div class="clear"></div>
+</div>
+<div class="clear"></div>
+</div>
+
+
+
+<footer>
+			<div class="ftw" id="dq_footer">
+			<div class="wrp cnt">
+									<div class="colm twc ">
+						<section id="text-5">			<div class="textwidget"><div style="margin: 20px 0px 20px 0px;">
+<p><a href="https://www.dataquest.io/"><noscript><img src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png" width="170px" height="28px" /></noscript><img class=" ls-is-cached lazyloaded" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/dq-1.png" data-src="https://www.dataquest.io/wp-content/uploads/2019/01/dq-1.png" width="170px" height="28px"></a></p>
+</div>
+<div style="margin: 20px 0px 20px 0px;">All rights reserved © 2019 – Dataquest Labs, Inc.</div>
+<div style="margin: 20px 50px 20px 0px;">We are committed to protecting your personal information and your right to privacy. Privacy Policy last updated June 13th, 2019 – <a style="color: #ffffff; font-size: 12px;" href="https://www.dataquest.io/privacy">review here</a>.</div>
+</div>
+		</section>					</div>
+									<div class="colm twc lst">
+						<section id="text-9">			<div class="textwidget"><div class="footer-links" style="font-size: 12px; margin: 20px 0px 0px 0px;">
+<div style="float: left; margin-right: 50px;"><a href="https://www.dataquest.io/help" target="_blank" rel="noopener noreferrer">Help</a><br>
+<a href="https://www.dataquest.io/blog" target="_blank" rel="noopener noreferrer">Blog</a><br>
+<a href="https://www.dataquest.io/directory">Directory</a><br>
+<a href="https://community.dataquest.io/" target="_blank" rel="noopener noreferrer">Community</a></div>
+<div style="float: left; margin-right: 50px;"><a href="https://www.dataquest.io/subscribe">Pricing</a><br>
+<a href="https://www.dataquest.io/were-hiring">We’re Hiring</a><br>
+<a href="https://www.dataquest.io/terms">Legals</a><br>
+<a href="https://www.dataquest.io/privacy">Privacy</a></div>
+<div style="float: left; margin-bottom: 100px;"><a href="https://www.facebook.com/dataquestio" target="_blank" rel="noopener noreferrer">Facebook</a><br>
+<a href="https://twitter.com/dataquestio" target="_blank" rel="noopener noreferrer">Twitter</a><br>
+<a href="https://www.linkedin.com/company/dataquest-io" target="_blank" rel="noopener noreferrer">LinkedIn</a></div>
+</div>
+</div>
+		</section>					</div>
+								<div class="clear"></div>
+			</div>
+		</div>
+			<div class="copy">
+		<div class="wrp cnt">
+			<p>
+											</p>
+					</div>
+	</div>
+	</footer>
+
+
+<script type="text/javascript">
+/* <![CDATA[ */
+var TVE_Ult_Data = {"ajaxurl":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","ajax_load_action":"tve_ult_ajax_load","conversion_events_action":"tve_ult_conversion_event","shortcode_campaign_ids":[],"matched_display_settings":[],"campaign_ids":[],"post_id":1955,"is_singular":true,"tu_em":""};
+/* ]]> */
+</script>
+		<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/no-campaign.min.js"></script><style>.lazyload,.lazyloading{opacity:0;}.lazyloaded{opacity:1;transition:opacity 300ms;}</style><noscript><style>.lazyload{display:none;}</style></noscript><script data-noptimize="1">window.lazySizesConfig=window.lazySizesConfig||{};window.lazySizesConfig.loadMode=1;</script><script async="" data-noptimize="1" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/lazysizes.min.js"></script><style type="text/css">.saboxplugin-wrap{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-ms-box-sizing:border-box;box-sizing:border-box;border:1px solid #eee;width:100%;clear:both;display:block;overflow:hidden;word-wrap:break-word;position:relative}.saboxplugin-wrap .saboxplugin-gravatar{float:left;padding:20px}.saboxplugin-wrap .saboxplugin-gravatar img{max-width:100px;height:auto;border-radius:0;}.saboxplugin-wrap .saboxplugin-authorname{font-size:18px;line-height:1;margin:20px 0 0 20px;display:block}.saboxplugin-wrap .saboxplugin-authorname a{text-decoration:none}.saboxplugin-wrap .saboxplugin-authorname a:focus{outline:0}.saboxplugin-wrap .saboxplugin-desc{display:block;margin:5px 20px}.saboxplugin-wrap .saboxplugin-desc a{text-decoration:underline}.saboxplugin-wrap .saboxplugin-desc p{margin:5px 0 12px}.saboxplugin-wrap .saboxplugin-web{margin:0 20px 15px;text-align:left}.saboxplugin-wrap .sab-web-position{text-align:right}.saboxplugin-wrap .saboxplugin-web a{color:#ccc;text-decoration:none}.saboxplugin-wrap .saboxplugin-socials{position:relative;display:block;background:#fcfcfc;padding:5px;border-top:1px solid #eee}.saboxplugin-wrap .saboxplugin-socials a svg{width:20px;height:20px}.saboxplugin-wrap .saboxplugin-socials a svg .st2{fill:#fff; transform-origin:center center;}.saboxplugin-wrap .saboxplugin-socials a svg .st1{fill:rgba(0,0,0,.3)}.saboxplugin-wrap .saboxplugin-socials a:hover{opacity:.8;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;-o-transition:opacity .4s;transition:opacity .4s;box-shadow:none!important;-webkit-box-shadow:none!important}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-color{box-shadow:none;padding:0;border:0;-webkit-transition:opacity .4s;-moz-transition:opacity .4s;-o-transition:opacity .4s;transition:opacity .4s;display:inline-block;color:#fff;font-size:0;text-decoration:inherit;margin:5px;-webkit-border-radius:0;-moz-border-radius:0;-ms-border-radius:0;-o-border-radius:0;border-radius:0;overflow:hidden}.saboxplugin-wrap .saboxplugin-socials .saboxplugin-icon-grey{text-decoration:inherit;box-shadow:none;position:relative;display:-moz-inline-stack;display:inline-block;vertical-align:middle;zoom:1;margin:10px 5px;color:#444;fill:#444}.clearfix:after,.clearfix:before{content:' ';display:table;line-height:0;clear:both}.ie7 .clearfix{zoom:1}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-twitch{border-color:#38245c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-addthis{border-color:#e91c00}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-behance{border-color:#003eb0}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-delicious{border-color:#06c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-deviantart{border-color:#036824}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-digg{border-color:#00327c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-dribbble{border-color:#ba1655}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-facebook{border-color:#1e2e4f}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-flickr{border-color:#003576}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-github{border-color:#264874}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-google{border-color:#0b51c5}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-googleplus{border-color:#96271a}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-html5{border-color:#902e13}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-instagram{border-color:#1630aa}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-linkedin{border-color:#00344f}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-pinterest{border-color:#5b040e}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-reddit{border-color:#992900}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-rss{border-color:#a43b0a}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-sharethis{border-color:#5d8420}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-skype{border-color:#00658a}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-soundcloud{border-color:#995200}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-spotify{border-color:#0f612c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-stackoverflow{border-color:#a95009}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-steam{border-color:#006388}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-user_email{border-color:#b84e05}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-stumbleUpon{border-color:#9b280e}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-tumblr{border-color:#10151b}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-twitter{border-color:#0967a0}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-vimeo{border-color:#0d7091}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-windows{border-color:#003f71}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-whatsapp{border-color:#003f71}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-wordpress{border-color:#0f3647}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-yahoo{border-color:#14002d}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-youtube{border-color:#900}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-xing{border-color:#000202}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-mixcloud{border-color:#2475a0}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-vk{border-color:#243549}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-medium{border-color:#00452c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-quora{border-color:#420e00}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-meetup{border-color:#9b181c}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-goodreads{border-color:#000}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-snapchat{border-color:#999700}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-500px{border-color:#00557f}.saboxplugin-socials.sabox-colored .saboxplugin-icon-color .sab-mastodont{border-color:#185886}.sabox-plus-item{margin-bottom:20px}@media screen and (max-width:480px){.saboxplugin-wrap{text-align:center}.saboxplugin-wrap .saboxplugin-gravatar{float:none;padding:20px 0;text-align:center;margin:0 auto;display:block}.saboxplugin-wrap .saboxplugin-gravatar img{float:none;display:inline-block;display:-moz-inline-stack;vertical-align:middle;zoom:1}.saboxplugin-wrap .saboxplugin-desc{margin:0 10px 20px;text-align:center}.saboxplugin-wrap .saboxplugin-authorname{text-align:center;margin:10px 0 20px}}body .saboxplugin-authorname a,body .saboxplugin-authorname a:hover{box-shadow:none;-webkit-box-shadow:none}a.sab-profile-edit{font-size:16px!important;line-height:1!important}.sab-edit-settings a,a.sab-profile-edit{color:#0073aa!important;box-shadow:none!important;-webkit-box-shadow:none!important}.sab-edit-settings{margin-right:15px;position:absolute;right:0;z-index:2;bottom:10px;line-height:20px}.sab-edit-settings i{margin-left:5px}.saboxplugin-socials{line-height:1!important}.rtl .saboxplugin-wrap .saboxplugin-gravatar{float:right}.rtl .saboxplugin-wrap .saboxplugin-authorname{display:flex;align-items:center}.rtl .saboxplugin-wrap .saboxplugin-authorname .sab-profile-edit{margin-right:10px}.rtl .sab-edit-settings{right:auto;left:0}img.sab-custom-avatar{max-width:75px;}.saboxplugin-wrap .saboxplugin-gravatar img {-webkit-border-radius:50%;-moz-border-radius:50%;-ms-border-radius:50%;-o-border-radius:50%;border-radius:50%;}.saboxplugin-wrap {margin-top:20px; margin-bottom:0px; padding: 0px 0px }.saboxplugin-wrap .saboxplugin-authorname {font-size:16px; line-height:23px;}.saboxplugin-wrap .saboxplugin-desc p, .saboxplugin-wrap .saboxplugin-desc {font-size:13px !important; line-height:20px !important;}.saboxplugin-wrap .saboxplugin-web {font-size:14px;}.saboxplugin-wrap .saboxplugin-socials a svg {width:18px;height:18px;}</style><link rel="stylesheet" id="tve_style_family_tve_flt-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/thrive_flat.css" type="text/css" media="all">
+<link rel="stylesheet" id="tve_leads_forms-css" href="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/frontend.css" type="text/css" media="all">
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/triggers.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/datatables.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/posts-data-table.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ThriveApp = {"ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","lazy_load_comments":"1","comments_loaded":"0","translations":{"ProductDetails":"Product Details"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/script.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var tve_dash_front = {"ajaxurl":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","force_ajax_send":"","is_crawler":""};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/frontend.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var ThriveApprentice = {"ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","current_post_id":"1955","lang":{"remove_from_fav":"Remove from Favorites","add_to_fav":"Mark as Favorite"},"progress_status":{"new":"new","started":"started","completed":"completed"}};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/thrive-apprentice.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var q2w3_sidebar_options = [{"sidebar":"sidebar-1","margin_top":0,"margin_bottom":0,"stop_id":"dq_footer","screen_max_width":500,"screen_max_height":0,"width_inherit":false,"refresh_interval":1500,"window_load_hook":false,"disable_mo_api":false,"widgets":["custom_html-2","search-3","nav_menu-3","nav_menu-10"]}];
+/* ]]> */
+</script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/q2w3-fixed-widget.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/prism-js.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/wp-embed.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/imagesloaded.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/masonry.min.js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/jquery.masonry.min.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var tve_frontend_options = {"is_editor_page":"","page_events":[],"is_single":"1","ajaxurl":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","social_fb_app_id":"","dash_url":"https:\/\/www.dataquest.io\/wp-content\/plugins\/thrive-visual-editor\/thrive-dashboard","translations":{"Copy":"Copy"},"post_id":"1955"};
+/* ]]> */
+</script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/frontend.min(1).js"></script>
+<script type="text/javascript" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/frontend.min(2).js"></script>
+<script type="text/javascript">/*<![CDATA[*/var THO_Front = THO_Front || {}; THO_Front.data = {"end_of_content_id":"tho-end-content","is_single":true,"log_url":"https:\/\/www.dataquest.io\/wp-json\/tho\/v1\/logs","active_triggers":{"viewport":"thrive_headline"},"log_engagements":[],"post_id":1955,"test_id":0,"const":{"_e_click":1,"_e_scroll":2,"_e_time":3,"_impression":1,"_engagement":2}}/*]]> */</script><script type="text/javascript">var tcb_post_lists=JSON.parse('[]');</script><script type="text/javascript">/*<![CDATA[*/if ( !window.TL_Const ) {var TL_Const={"security":"4a24070a95","ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","forms":[],"action_conversion":"tve_leads_ajax_conversion","action_impression":"tve_leads_ajax_impression","ajax_load":1,"main_group_id":17187,"display_options":{"allowed_post_types":[],"flag_url_match":false},"shortcode_ids":["11317"],"custom_post_data":{"http_referrer":"https:\/\/www.google.com\/"},"current_screen":{"screen_type":4,"screen_id":1955},"ignored_fields":["email","_captcha_size","_captcha_theme","_captcha_type","_submit_option","_use_captcha","g-recaptcha-response","__tcb_lg_fc","__tcb_lg_msg","_state","_form_type","_error_message_option","_back_url","_submit_option","url","_asset_group","_asset_option","mailchimp_optin"]};} else {ThriveGlobal.$j.extend(true, TL_Const, {"security":"4a24070a95","ajax_url":"https:\/\/www.dataquest.io\/wp-admin\/admin-ajax.php","forms":[],"action_conversion":"tve_leads_ajax_conversion","action_impression":"tve_leads_ajax_impression","ajax_load":1,"main_group_id":17187,"display_options":{"allowed_post_types":[],"flag_url_match":false},"shortcode_ids":["11317"],"custom_post_data":{"http_referrer":"https:\/\/www.google.com\/"},"current_screen":{"screen_type":4,"screen_id":1955},"ignored_fields":["email","_captcha_size","_captcha_theme","_captcha_type","_submit_option","_use_captcha","g-recaptcha-response","__tcb_lg_fc","__tcb_lg_msg","_state","_form_type","_error_message_option","_back_url","_submit_option","url","_asset_group","_asset_option","mailchimp_optin"]})} /*]]> */</script>
+<script type="text/javascript">
+	(function ($) {
+	$(function () {
+		var event_data = {"form_id":"tve-leads-track-shortcode_11317","form_type":"shortcode"};
+		event_data.source = 'page_load';
+		setTimeout(function () {
+			ThriveGlobal.$j(TL_Front).trigger('showform.thriveleads', event_data);
+			}, 200);
+		});
+	})
+(ThriveGlobal.$j);
+</script><script type="text/javascript">var tcb_post_lists=JSON.parse('[]');</script><script type="text/javascript" id="">(function(a,e,f,g,b,c,d){a.ProfitWellObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","https://dna8twue3dlxq.cloudfront.net/js/profitwell.js","profitwell");profitwell("auth_token","bd8a22377119e7044e07346a8c89a91f");profitwell("user_email","USER@EMAIL.COM");</script><script type="text/javascript" id="" charset="utf-8" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/b960428aed859499a86a27f8ce0a0a6bd2ea6c87.js"></script>
+<script type="text/javascript" id="">(function(a,c,e,f,d,b){a.hj=a.hj||function(){(a.hj.q=a.hj.q||[]).push(arguments)};a._hjSettings={hjid:1054645,hjsv:6};d=c.getElementsByTagName("head")[0];b=c.createElement("script");b.async=1;b.src=e+a._hjSettings.hjid+f+a._hjSettings.hjsv;d.appendChild(b)})(window,document,"https://static.hotjar.com/c/hotjar-",".js?sv\x3d");</script>
+
+<script type="text/javascript" id="">!function(c,d){if(!c.rdt){var a=c.rdt=function(){a.sendEvent?a.sendEvent.apply(a,arguments):a.callQueue.push(arguments)};a.callQueue=[];var b=d.createElement("script");b.src="https://www.redditstatic.com/ads/pixel.js";b.async=!0;var e=d.getElementsByTagName("script")[0];e.parentNode.insertBefore(b,e)}}(window,document);rdt("init","t2_umdn63h");rdt("track","PageVisit");</script>
+
+
+
+
+<script type="text/javascript" id="">!function(d,e,f,a,b,c){d.qp||(a=d.qp=function(){a.qp?a.qp.apply(a,arguments):a.queue.push(arguments)},a.queue=[],b=document.createElement(e),b.async=!0,b.src=f,c=document.getElementsByTagName(e)[0],c.parentNode.insertBefore(b,c))}(window,"script","https://a.quora.com/qevents.js");qp("init","54f6bd738f084d4bab5c10277788555d");qp("track","ViewContent");</script>
+<noscript><img height="1" width="1" style="display:none" src="https://q.quora.com/_/ad/54f6bd738f084d4bab5c10277788555d/pixel?tag=ViewContent&amp;noscript=1"></noscript>
+<iframe id="intercom-frame" style="position: absolute !important; opacity: 0 !important; width: 1px !important; height: 1px !important; top: 0 !important; left: 0 !important; border: none !important; display: block !important; z-index: -1 !important;" aria-hidden="true" tabindex="-1" title="Intercom" src="./NumPy Cheat Sheet — Python for Data Science – Dataquest_files/saved_resource.html"></iframe><div id="intercom-css-container"><style data-emotion="intercom-global"></style></div><div id="intercom-container" class="intercom-namespace"><style>html.intercom-mobile-messenger-active,html.intercom-mobile-messenger-active > body,html.intercom-modal-open,#intercom-container-body{overflow:hidden !important;}html.intercom-mobile-messenger-active,html.intercom-mobile-messenger-active > body{position:static !important;}html.intercom-mobile-messenger-active > body{height:0 !important;margin:0 !important;}iframe#intercom-frame{position:absolute !important;opacity:0 !important;width:1px !important;height:1px !important;top:0 !important;left:0 !important;border:none !important;display:block !important;z-index:-1 !important;}</style><div class="intercom-app" aria-live="polite"><div id="intercom-modal-container"></div></div></div><span style="border-radius: 3px !important; text-indent: 20px !important; width: auto !important; padding: 0px 4px 0px 0px !important; text-align: center !important; font: bold 11px / 20px &quot;Helvetica Neue&quot;, Helvetica, sans-serif !important; color: rgb(255, 255, 255) !important; background: url(&quot;data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGhlaWdodD0iMzBweCIgd2lkdGg9IjMwcHgiIHZpZXdCb3g9Ii0xIC0xIDMxIDMxIj48Zz48cGF0aCBkPSJNMjkuNDQ5LDE0LjY2MiBDMjkuNDQ5LDIyLjcyMiAyMi44NjgsMjkuMjU2IDE0Ljc1LDI5LjI1NiBDNi42MzIsMjkuMjU2IDAuMDUxLDIyLjcyMiAwLjA1MSwxNC42NjIgQzAuMDUxLDYuNjAxIDYuNjMyLDAuMDY3IDE0Ljc1LDAuMDY3IEMyMi44NjgsMC4wNjcgMjkuNDQ5LDYuNjAxIDI5LjQ0OSwxNC42NjIiIGZpbGw9IiNmZmYiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIj48L3BhdGg+PHBhdGggZD0iTTE0LjczMywxLjY4NiBDNy41MTYsMS42ODYgMS42NjUsNy40OTUgMS42NjUsMTQuNjYyIEMxLjY2NSwyMC4xNTkgNS4xMDksMjQuODU0IDkuOTcsMjYuNzQ0IEM5Ljg1NiwyNS43MTggOS43NTMsMjQuMTQzIDEwLjAxNiwyMy4wMjIgQzEwLjI1MywyMi4wMSAxMS41NDgsMTYuNTcyIDExLjU0OCwxNi41NzIgQzExLjU0OCwxNi41NzIgMTEuMTU3LDE1Ljc5NSAxMS4xNTcsMTQuNjQ2IEMxMS4xNTcsMTIuODQyIDEyLjIxMSwxMS40OTUgMTMuNTIyLDExLjQ5NSBDMTQuNjM3LDExLjQ5NSAxNS4xNzUsMTIuMzI2IDE1LjE3NSwxMy4zMjMgQzE1LjE3NSwxNC40MzYgMTQuNDYyLDE2LjEgMTQuMDkzLDE3LjY0MyBDMTMuNzg1LDE4LjkzNSAxNC43NDUsMTkuOTg4IDE2LjAyOCwxOS45ODggQzE4LjM1MSwxOS45ODggMjAuMTM2LDE3LjU1NiAyMC4xMzYsMTQuMDQ2IEMyMC4xMzYsMTAuOTM5IDE3Ljg4OCw4Ljc2NyAxNC42NzgsOC43NjcgQzEwLjk1OSw4Ljc2NyA4Ljc3NywxMS41MzYgOC43NzcsMTQuMzk4IEM4Ljc3NywxNS41MTMgOS4yMSwxNi43MDkgOS43NDksMTcuMzU5IEM5Ljg1NiwxNy40ODggOS44NzIsMTcuNiA5Ljg0LDE3LjczMSBDOS43NDEsMTguMTQxIDkuNTIsMTkuMDIzIDkuNDc3LDE5LjIwMyBDOS40MiwxOS40NCA5LjI4OCwxOS40OTEgOS4wNCwxOS4zNzYgQzcuNDA4LDE4LjYyMiA2LjM4NywxNi4yNTIgNi4zODcsMTQuMzQ5IEM2LjM4NywxMC4yNTYgOS4zODMsNi40OTcgMTUuMDIyLDYuNDk3IEMxOS41NTUsNi40OTcgMjMuMDc4LDkuNzA1IDIzLjA3OCwxMy45OTEgQzIzLjA3OCwxOC40NjMgMjAuMjM5LDIyLjA2MiAxNi4yOTcsMjIuMDYyIEMxNC45NzMsMjIuMDYyIDEzLjcyOCwyMS4zNzkgMTMuMzAyLDIwLjU3MiBDMTMuMzAyLDIwLjU3MiAxMi42NDcsMjMuMDUgMTIuNDg4LDIzLjY1NyBDMTIuMTkzLDI0Ljc4NCAxMS4zOTYsMjYuMTk2IDEwLjg2MywyNy4wNTggQzEyLjA4NiwyNy40MzQgMTMuMzg2LDI3LjYzNyAxNC43MzMsMjcuNjM3IEMyMS45NSwyNy42MzcgMjcuODAxLDIxLjgyOCAyNy44MDEsMTQuNjYyIEMyNy44MDEsNy40OTUgMjEuOTUsMS42ODYgMTQuNzMzLDEuNjg2IiBmaWxsPSIjZTYwMDIzIj48L3BhdGg+PC9nPjwvc3ZnPg==&quot;) 3px 50% / 14px 14px no-repeat rgb(230, 0, 35) !important; position: absolute !important; opacity: 1 !important; z-index: 8675309 !important; display: none; cursor: pointer !important; border: none !important; -webkit-font-smoothing: antialiased !important; top: 319px; left: 386px;">Save</span><span style="border-radius: 12px; width: 24px !important; height: 24px !important; background: url(&quot;data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pjxzdmcgd2lkdGg9IjI0cHgiIGhlaWdodD0iMjRweCIgdmlld0JveD0iMCAwIDI0IDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiPjxkZWZzPjxtYXNrIGlkPSJtIj48cmVjdCBmaWxsPSIjZmZmIiB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHJ4PSI2IiByeT0iNiIvPjxyZWN0IGZpbGw9IiMwMDAiIHg9IjUiIHk9IjUiIHdpZHRoPSIxNCIgaGVpZ2h0PSIxNCIgcng9IjEiIHJ5PSIxIi8+PHJlY3QgZmlsbD0iIzAwMCIgeD0iMTAiIHk9IjAiIHdpZHRoPSI0IiBoZWlnaHQ9IjI0Ii8+PHJlY3QgZmlsbD0iIzAwMCIgeD0iMCIgeT0iMTAiIHdpZHRoPSIyNCIgaGVpZ2h0PSI0Ii8+PC9tYXNrPjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIGZpbGw9IiNmZmYiIG1hc2s9InVybCgjbSkiLz48L3N2Zz4=&quot;) 50% 50% / 14px 14px no-repeat rgba(0, 0, 0, 0.4) !important; position: absolute !important; opacity: 1 !important; z-index: 8675309 !important; display: none; cursor: pointer !important; border: none !important; top: 319px; left: 1040.45px;"></span></body><editor-card style="animation: initial; transition: initial; color: initial; font: initial; font-feature-settings: initial; font-kerning: initial; font-optical-sizing: initial; font-variation-settings: initial; text-orientation: initial; text-rendering: initial; -webkit-font-smoothing: initial; -webkit-locale: initial; -webkit-text-orientation: initial; -webkit-writing-mode: initial; writing-mode: initial; zoom: initial; place-content: initial; place-items: initial; place-self: initial; alignment-baseline: initial; backdrop-filter: initial; backface-visibility: initial; background: initial; background-blend-mode: initial; baseline-shift: initial; block-size: initial; border-block-end: initial; border-block-start: initial; border: initial; border-radius: initial; border-collapse: initial; border-inline-end: initial; border-inline-start: initial; bottom: initial; box-shadow: initial; box-sizing: initial; break-after: initial; break-before: initial; break-inside: initial; buffered-rendering: initial; caption-side: initial; caret-color: initial; clear: initial; clip: initial; clip-path: initial; clip-rule: initial; color-interpolation: initial; color-interpolation-filters: initial; color-rendering: initial; columns: initial; column-fill: initial; gap: initial; column-rule: initial; column-span: initial; contain: initial; content: initial; counter-increment: initial; counter-reset: initial; cursor: initial; cx: initial; cy: initial; d: initial; display: initial; dominant-baseline: initial; empty-cells: initial; fill: initial; fill-opacity: initial; fill-rule: initial; filter: initial; flex: initial; flex-flow: initial; float: initial; flood-color: initial; flood-opacity: initial; grid: initial; grid-area: initial; height: initial; hyphens: initial; image-rendering: initial; inline-size: initial; isolation: initial; left: 0px; letter-spacing: initial; lighting-color: initial; line-break: initial; list-style: initial; margin-block-end: initial; margin-block-start: initial; margin: initial; margin-inline-end: initial; margin-inline-start: initial; marker: initial; mask: initial; mask-type: initial; max-block-size: initial; max-height: initial; max-inline-size: initial; max-width: initial; min-block-size: initial; min-height: initial; min-inline-size: initial; min-width: initial; mix-blend-mode: initial; object-fit: initial; object-position: initial; offset: initial; opacity: initial; order: initial; orphans: initial; outline: initial; outline-offset: initial; overflow-anchor: initial; overflow-wrap: initial; overflow: initial; overscroll-behavior-block: initial; overscroll-behavior-inline: initial; overscroll-behavior: initial; padding-block-end: initial; padding-block-start: initial; padding: initial; padding-inline-end: initial; padding-inline-start: initial; page: initial; paint-order: initial; perspective: initial; perspective-origin: initial; pointer-events: initial; position: absolute; quotes: initial; r: initial; resize: initial; right: initial; rx: initial; ry: initial; scroll-behavior: initial; scroll-margin-block: initial; scroll-margin: initial; scroll-margin-inline: initial; scroll-padding-block: initial; scroll-padding: initial; scroll-padding-inline: initial; scroll-snap-align: initial; scroll-snap-stop: initial; scroll-snap-type: initial; shape-image-threshold: initial; shape-margin: initial; shape-outside: initial; shape-rendering: initial; size: initial; speak: initial; stop-color: initial; stop-opacity: initial; stroke: initial; stroke-dasharray: initial; stroke-dashoffset: initial; stroke-linecap: initial; stroke-linejoin: initial; stroke-miterlimit: initial; stroke-opacity: initial; stroke-width: initial; tab-size: initial; table-layout: initial; text-align: initial; text-align-last: initial; text-anchor: initial; text-combine-upright: initial; text-decoration: initial; text-decoration-skip-ink: initial; text-indent: initial; text-overflow: initial; text-shadow: initial; text-size-adjust: initial; text-transform: initial; text-underline-position: initial; top: 0px; touch-action: initial; transform: initial; transform-box: initial; transform-origin: initial; transform-style: initial; user-select: initial; vector-effect: initial; vertical-align: initial; visibility: initial; -webkit-app-region: initial; -webkit-appearance: initial; border-spacing: initial; -webkit-border-image: initial; -webkit-box-align: initial; -webkit-box-decoration-break: initial; -webkit-box-direction: initial; -webkit-box-flex: initial; -webkit-box-ordinal-group: initial; -webkit-box-orient: initial; -webkit-box-pack: initial; -webkit-box-reflect: initial; -webkit-font-size-delta: initial; -webkit-highlight: initial; -webkit-hyphenate-character: initial; -webkit-line-break: initial; -webkit-line-clamp: initial; -webkit-margin-collapse: initial; -webkit-margin-bottom-collapse: initial; -webkit-margin-top-collapse: initial; -webkit-mask-box-image: initial; -webkit-mask: initial; -webkit-mask-composite: initial; -webkit-perspective-origin-x: initial; -webkit-perspective-origin-y: initial; -webkit-print-color-adjust: initial; -webkit-rtl-ordering: initial; -webkit-ruby-position: initial; -webkit-tap-highlight-color: initial; -webkit-text-combine: initial; -webkit-text-decorations-in-effect: initial; -webkit-text-emphasis: initial; -webkit-text-emphasis-position: initial; -webkit-text-fill-color: initial; -webkit-text-security: initial; -webkit-text-stroke: initial; -webkit-transform-origin-x: initial; -webkit-transform-origin-y: initial; -webkit-transform-origin-z: initial; -webkit-user-drag: initial; -webkit-user-modify: initial; white-space: initial; widows: initial; width: initial; will-change: initial; word-break: initial; word-spacing: initial; x: initial; y: initial; z-index: auto;"></editor-card></html>
