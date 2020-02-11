@@ -1,18 +1,9 @@
-# from scipy import signal
 import numpy as np
-# import timeit
-# from timeit import default_timer as timer
-
 import time
 
 umax = np.iinfo(np.uint8).max
 
 def conv1D(M):
-    # kernel = np.array([-1,0,1])
-    # kernelH = np.tile(kernel, (rows, 1))
-    # kernelV = np.tile(kernel, (1, cols))
-    # Dx = scipy.signal.convolve2d(M, kernelH, 'same')
-    # Dy = scipy.signal.convolve2d(M, kernelV, 'same')
 
     # testing
     # M = np.zeros((10,10)) #, dtype='uint16')
@@ -39,7 +30,7 @@ def conv1D(M):
     # print(aV)    
     Dy = M.T.dot(aV)
 
-    return Dx, Dy.T    # endd =
+    return Dx, Dy.T    
 
 
 if __name__ == '__main__':
