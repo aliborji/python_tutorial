@@ -51,3 +51,12 @@ if __name__ == '__main__':
     print(F"Max of Dx: {Dx_Max}, Max of Dy: {Dy_Max}")
 
 
+
+
+    # Refs:
+    # https://stackoverflow.com/questions/37674306/what-is-the-difference-between-same-and-valid-padding-in-tf-nn-max-pool-of-t
+    # https://stackoverflow.com/questions/18026541/make-special-diagonal-matrix-in-numpy
+    # https://docs.python.org/2/library/timeit.html
+    # https://stackoverflow.com/questions/15616742/vectorized-way-of-calculating-row-wise-dot-product-two-matrices-with-scipy
+    # https://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python
+    # https://docs.scipy.org/doc/numpy/reference/generated/numpy.iinfo.html
