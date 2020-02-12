@@ -4,7 +4,6 @@ import time
 umax = np.iinfo(np.uint8).max
 
 def conv1D(M):
-
     # testing
     # M = np.zeros((10,10)) #, dtype='uint16')
     # M[:5,:] = -1
@@ -33,22 +32,48 @@ def conv1D(M):
     return Dx, Dy.T    
 
 
+
+def conv1Dfaster(M):
+    # testing
+    # bigM = np.zeros((10,12))
+    # M = np.zeros((10,10)) #, dtype='uint16')
+    # M[:5,:] = -1
+    # M[5:,:] = 1
+    # # M = M.T
+
+    rows, cols = M.shape[0], M.shape[1]
+    bigM = np.zeros((rows,cols+2))
+    bigM[:,1:-1]=M
+    # print(bigM)
+    Dx = bigM[:,2:] - bigM[:,:-2]
+
+
+    bigM = np.zeros((rows+2,cols))
+    bigM[1:-1,:]=M
+    # print(bigM)
+    Dy = bigM[2:,:] - bigM[:-2,:]
+
+    return Dx, Dy 
+
+
 if __name__ == '__main__':
     rows, cols = list(map(int, input('Enter rows and cols separated by space: ').split(',')))
-    M = np.random.randint(0, umax, size=(rows, cols), dtype='uint8')
+    M = np.random.randint(0, umax+1, size=(rows, cols), dtype='uint8')
 
     start = time.time() #timeit.timeit()
     Dx, Dy = conv1D(M)
+    print(Dx)
+    print(Dy)    
     print(F"Total taken time: {time.time() - start}")
+    print(F"Max of Dx: {Dx.max()}, Max of Dy: {Dy.max()}")
 
+    start = time.time() #timeit.timeit()
+    Dx, Dy = conv1Dfaster(M)
+    print(Dx)
+    print(Dy)    
+    print(F"Total taken time using the faster method: {time.time() - start}")
+    print(F"Max of Dx: {Dx.max()}, Max of Dy: {Dy.max()}")
 
-    Dx_Max = Dx.max()
-    Dy_Max = Dy.max()
-
-    # print(Dx)
-    # print(Dy)
-
-    print(F"Max of Dx: {Dx_Max}, Max of Dy: {Dy_Max}")
 
 
 
