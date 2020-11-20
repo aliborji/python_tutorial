@@ -25,3 +25,24 @@ https://sahandsaba.com/thirty-python-language-features-and-tricks-you-may-not-kn
 7 Python Mistakes You Don’t Want to Make
 https://towardsdatascience.com/7-python-mistakes-you-dont-want-to-make-77ac068c847
 
+
+args and kwargs
+https://towardsdatascience.com/10-examples-to-master-args-and-kwargs-in-python-6f1e8cc30749
+https://realpython.com/python-kwargs-and-args/
+
+
+Secure coding / Insecure decentralization
+  https://www.youtube.com/watch?v=F60t8p7Nans
+  https://www.youtube.com/watch?v=YuQ86AvsPGU
+  https://www.youtube.com/watch?v=mxPlKEhLSbU
+  https://www.youtube.com/watch?v=MsRvqMxOryM
+  https://www.youtube.com/watch?v=Oqtvg-mDLjg
+  https://www.youtube.com/watch?v=IcsOcWLJowY
+  https://www.youtube.com/watch?v=aC-nCEOVdKE
+  https://www.youtube.com/watch?v=_usNQEDws9c
+  & this course:
+    https://www.pluralsight.com/courses/secure-coding-insecure-deserialization-preventing
+
+
+
+
